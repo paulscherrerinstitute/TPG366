@@ -1,0 +1,40 @@
+# Mandatory macros:
+# CONTROLLER: Name of the MaxiGauge
+# PORT:       Asyn port of the MaxiGauge
+
+# Optional macros:
+# SENSOR1 ... SENSOR6: Names of the vacuum sensors
+#                      default to $(CONTROLLER)-SENSORx with x = 1 ... 6
+
+file TPG366.template
+{
+  { S1="$(SENSOR1=$(CONTROLLER)-SENSOR1)"
+    S2="$(SENSOR2=$(CONTROLLER)-SENSOR2)"
+    S3="$(SENSOR3=$(CONTROLLER)-SENSOR3)"
+    S4="$(SENSOR4=$(CONTROLLER)-SENSOR4)"
+    S5="$(SENSOR5=$(CONTROLLER)-SENSOR5)"
+    S6="$(SENSOR6=$(CONTROLLER)-SENSOR6)"
+  }
+}
+file TPG366-Sensor.template
+{ pattern
+# Mandatory macros:
+# CH: Channel number 1...6
+# CONTROLLER: MaxGauge name
+# SENSOR: Vaccum sensor name
+
+# Optional Macros:
+# WARN  = Warn (MINOR) level, defaults to Inf (No warning)
+# ALARM = Alarm (MAJOR) level, defaults to Inf (No alarm)
+# MIN = Minimal range exponent, defaults to -11
+# MAX = Maximal range exponent, defaults to -3
+# EGU = Engeneering units, default to "mbar"
+# PREC = Precision, defaults to -3 (3 digit exponential)
+  {CH SENSOR PREC MIN MAX WARN ALARM}
+  { 1 "$(SENSOR1=$(CONTROLLER)-SENSOR1)" "$(PREC1=-3)" "$(MIN1=-3)" "$(MAX1=-11)" "$(WARN1=Inf)" "$(ALARM1=Inf)" }
+  { 2 "$(SENSOR2=$(CONTROLLER)-SENSOR2)" "$(PREC2=-3)" "$(MIN2=-3)" "$(MAX2=-11)" "$(WARN2=Inf)" "$(ALARM2=Inf)" }
+  { 3 "$(SENSOR3=$(CONTROLLER)-SENSOR3)" "$(PREC3=-3)" "$(MIN3=-3)" "$(MAX3=-11)" "$(WARN3=Inf)" "$(ALARM3=Inf)" }
+  { 4 "$(SENSOR4=$(CONTROLLER)-SENSOR4)" "$(PREC4=-3)" "$(MIN4=-3)" "$(MAX4=-11)" "$(WARN4=Inf)" "$(ALARM4=Inf)" }
+  { 5 "$(SENSOR5=$(CONTROLLER)-SENSOR5)" "$(PREC5=-3)" "$(MIN5=-3)" "$(MAX5=-11)" "$(WARN5=Inf)" "$(ALARM5=Inf)" }
+  { 6 "$(SENSOR6=$(CONTROLLER)-SENSOR6)" "$(PREC6=-3)" "$(MIN6=-3)" "$(MAX6=-11)" "$(WARN6=Inf)" "$(ALARM6=Inf)" }
+}

@@ -1,0 +1,78 @@
+# Mandatory macros:
+# CONTROLLER: MaxGauge name
+# SENSOR: Vaccum sensor name
+
+# Optional Macros:
+# WARN  = Warn (MINOR) level, defaults to Inf (No warning)
+# ALARM = Alarm (MAJOR) level, defaults to Inf (No alarm)
+# MIN = Minimal range exponent, defaults to -11
+# MAX = Maximal range exponent, defaults to -3
+# PREC = Precision, defaults to -3 (3 digit exponential)
+
+record(calc, "$(SENSOR):PRESSURE") {
+    field(INPB, "$(SENSOR):STATUS CP MS")
+    field(CALC, "A")
+    field(EGU,  "mbar")
+    field(PREC, "$(PREC=-3)")
+    field(LOPR, "1e$(MIN=-11)")
+    field(HOPR, "1e$(MAX=-3)")
+    field(HIGH, "$(WARN=Inf)")
+    field(HSV,  "MINOR")
+    field(HIHI, "$(ALARM=Inf)")
+    field(HHSV, "MAJOR")
+}
+
+record(calcout, "$(SENSOR):DISCONNECTED") {
+    field(INPA, "$(CONTROLLER):READ-STATUS.STAT CP")
+    field(CALC, "A!=0")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "7")
+    field(OUT,  "$(SENSOR):STATUS PP")
+}
+
+record(mbbi, "$(SENSOR):STATUS") {
+    field(ZRST, "OK")
+    field(ONST, "UNDERRANGE")
+    field(TWST, "OVERRANGE")    field(TWSV, "MINOR")
+    field(THST, "SENSOR ERROR") field(THSV, "INVALID")
+    field(FRST, "SENSOR OFF")   field(FRSV, "INVALID")
+    field(FVST, "NO SENSOR")    field(FVSV, "INVALID")
+    field(SXST, "ID ERROR")     field(SXSV, "INVALID")
+    field(SVST, "I/O ERROR")    field(SVSV, "INVALID")
+}
+
+record(mbbi, "$(SENSOR):ONOFFG") {
+    field(DTYP, "Raw Soft Channel")
+    field(ZRVL, "1")  field(ZRST, "OFF")
+    field(ONVL, "2")  field(ONST, "ON") 
+    field(TWVL, "0")  field(TWST, "not switchable")
+}
+
+record(calcout, "$(SENSOR):ONOFF-UPDATER") {
+    field(INPA, "$(SENSOR):ONOFF")
+    field(INPB, "$(SENSOR):ONOFFG MS CP")
+    #field(INPC, "$(CONTROLLER):ONOFF-BL")
+    # not blocked and granted switch and switch differ
+    field(CALC, "C==0&&A!=B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "B>0")
+    field(OUT,  "$(SENSOR):ONOFF PP")
+    field(IVOA, "Don't drive outputs")
+}
+
+record(bo, "$(SENSOR):ONOFF") {
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(DTYP, "stream")
+    field(OUT,  "@TPG366.proto onoff$(CH)($(SENSOR)) $(PORT)")
+    field(ASG,  "$(ASG=)")
+    field(PRIO, "HIGH")
+}
+
+record(stringin, "$(SENSOR):GAUGE-TYPE") {
+}
+
+record(stringin, "$(SENSOR):NAME") {
+}

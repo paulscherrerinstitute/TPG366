@@ -1,0 +1,27 @@
+# The long links require EPICS R3.16+
+
+record(waveform, "$(CONTROLLER):DEBUG")
+{
+    field(DESC, "Generic command record")
+    field(DTYP, "stream")
+    field(FTVL, "CHAR")
+    field(NELM, "512")
+    field(PRIO, "HIGH")
+    field(INP,  "@TPG366.proto debug $(PORT)")
+}
+
+record(bi, "$(CONTROLLER):READ-STATUS") {
+    field(DTYP, "stream")
+    field(INP,  "@TPG366.proto status($(S1=$(SENSOR1=$(CONTROLLER)-SENSOR1)),$(S2=$(SENSOR2=$(CONTROLLER)-SENSOR2)),$(S3=$(SENSOR3=$(CONTROLLER)-SENSOR3)),$(S4=$(SENSOR4=$(CONTROLLER)-SENSOR4)),$(S5=$(SENSOR5=$(CONTROLLER)-SENSOR5)),$(S6=$(SENSOR6=$(CONTROLLER)-SENSOR6))) $(PORT)")
+    field(PRIO, "MEDIUM")
+    field(PINI, "YES")
+    field(SCAN, "1 second")
+}
+
+record(bi, "$(CONTROLLER):READ-INFOS") {
+    field(DTYP, "stream")
+    field(INP,  "@TPG366.proto infos($(S1=$(SENSOR1=$(CONTROLLER)-SENSOR1)),$(S2=$(SENSOR2=$(CONTROLLER)-SENSOR2)),$(S3=$(SENSOR3=$(CONTROLLER)-SENSOR3)),$(S4=$(SENSOR4=$(CONTROLLER)-SENSOR4)),$(S5=$(SENSOR5=$(CONTROLLER)-SENSOR5)),$(S6=$(SENSOR6=$(CONTROLLER)-SENSOR6))) $(PORT)")
+    field(PRIO, "LOW")
+    field(PINI, "YES")
+    field(SCAN, "10 second")
+}

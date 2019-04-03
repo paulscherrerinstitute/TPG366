@@ -1,0 +1,75 @@
+Terminator = CR LF;
+address = "";
+#address = ESC "01"; # for RS485
+
+debug {
+    out $address "%s"; in ACK; out ENQ;
+    in "%#s";
+}
+
+status {
+    @init {
+    # switch to mbar
+        out $address "UNI,0"; 
+    }
+
+    # read on/off status
+    out $address "SEN"; in ACK; out ENQ;
+    in "%(\$1:ONOFFG.RVAL)d,%(\$2:ONOFFG.RVAL)d,%(\$3:ONOFFG.RVAL)d,%(\$4:ONOFFG.RVAL)d,%(\$5:ONOFFG.RVAL)d,%(\$6:ONOFFG.RVAL)d";
+    # switch to mbar
+    out $address "UNI,0"; in ACK; out ENQ; in "0"; 
+    # read pressure
+    out $address "PRX"; in ACK; out ENQ;
+    in "%(\$1:STATUS)d,%(\$1:PRESSURE.A)f,"
+       "%(\$2:STATUS)d,%(\$2:PRESSURE.A)f,"
+       "%(\$3:STATUS)d,%(\$3:PRESSURE.A)f,"
+       "%(\$4:STATUS)d,%(\$4:PRESSURE.A)f,"
+       "%(\$5:STATUS)d,%(\$5:PRESSURE.A)f,"
+       "%(\$6:STATUS)d,%(\$6:PRESSURE.A)f";
+}
+
+onoff1 {
+    out $address "SEN,%{1|2},0,0,0,0,0"; in ACK; out ENQ;
+    in "%(\$1:ONOFFG.RVAL)d,%*d,%*d,%*d,%*d,%*d";
+}
+onoff2 {
+    out $address "SEN,0,%{1|2},0,0,0,0"; in ACK; out ENQ;
+    in "%*d,%(\$1:ONOFFG.RVAL)d,%*d,%*d,%*d,%*d";
+}
+onoff3 {
+    out $address "SEN,0,0,%{1|2},0,0,0"; in ACK; out ENQ;
+    in "%*d,%*d,%(\$1:ONOFFG.RVAL)d,%*d,%*d,%*d";
+}
+onoff4 {
+    out $address "SEN,0,0,0,%{1|2},0,0"; in ACK; out ENQ;
+    in "%*d,%*d,%*d,%(\$1:ONOFFG.RVAL)d,%*d,%*d";
+}
+onoff5 {
+    out $address "SEN,0,0,0,0,%{1|2},0"; in ACK; out ENQ;
+    in "%*d,%*d,%*d,%*d,%(\$1:ONOFFG.RVAL)d,%*d";
+}
+onoff6 {
+    out $address "SEN,0,0,0,0,0,%{1|2}"; in ACK; out ENQ;
+    in "%*d,%*d,%*d,%*d,%*d,%(\$1:ONOFFG.RVAL)d";
+}
+
+infos {
+    @init {
+        # display sensor type and name
+        out $address "DCB,0,12";
+    }
+
+    out $address "TID"; in ACK; out ENQ;
+    in "%(\$1:GAUGE-TYPE)[^,],%(\$2:GAUGE-TYPE)[^,],%(\$3:GAUGE-TYPE)[^,],%(\$4:GAUGE-TYPE)[^,],%(\$5:GAUGE-TYPE)[^,],%(\$6:GAUGE-TYPE)[^,]";
+    out $address "CID"; in ACK; out ENQ;
+    # remove all trailing _ from the names
+    in "%#/_+(?=,|$)//%(\$1:NAME)[^,],%(\$2:NAME)[^,],%(\$3:NAME)[^,],%(\$4:NAME)[^,],%(\$5:NAME)[^,],%(\$6:NAME)[^,]";
+}
+
+
+relaisStatus {
+    out $address "SPS" CR;
+    in ACK;
+    out ENQ;
+    in "%(\$2:SETPOINT1.VAL){0|1},%(\$2:SETPOINT2.VAL){0|1},%(\$2:SETPOINT3.VAL){0|1},%(\$2:SETPOINT4.VAL){0|1},%(\$2:SETPOINT5.VAL){0|1},%(\$2:SETPOINT6.VAL){0|1}";
+}
