@@ -38,3 +38,14 @@ file TPG366-Sensor.template
   { 5 "$(SENSOR5=$(CONTROLLER)-SENSOR5)" "$(PREC5=-3)" "$(MIN5=-3)" "$(MAX5=-11)" "$(WARN5=Inf)" "$(ALARM5=Inf)" }
   { 6 "$(SENSOR6=$(CONTROLLER)-SENSOR6)" "$(PREC6=-3)" "$(MIN6=-3)" "$(MAX6=-11)" "$(WARN6=Inf)" "$(ALARM6=Inf)" }
 }
+
+file TPG366-Setpoint.template
+{ pattern
+  {NR NRC}
+  {1  A}
+  {2  B}
+  {3  C}
+  {4  D}
+  {5  E}
+  {6  F}
+}

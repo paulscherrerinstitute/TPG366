@@ -1,0 +1,125 @@
+record (bi, "$(CONTROLLER):RELAIS$(NR)")
+{
+    alias ("$(CONTROLLER):RELAIS-$(NRC)")
+    field (DESC, "state read from hardware")
+    field (ZNAM, "OFF")
+    field (ZSV,  "MAJOR")
+    field (ONAM, "ON")
+    field (FLNK, "$(CONTROLLER):SETPOINT$(NR)")
+}
+
+record (bi, "$(CONTROLLER):SETPOINT$(NR)")
+{
+    # for backward compatibility
+    field (INP, "$(CONTROLLER):RELAIS$(NR)")
+    field (DESC, "state read from hardware")
+    field (ZNAM, "alarm")
+    field (ZSV,  "MAJOR")
+    field (ONAM, "Ok")
+}
+
+record (mbbo, "$(CONTROLLER):RELAIS$(NR)-SOURCE")
+{
+    alias ("$(CONTROLLER):RELAIS-$(NRC)-SOURCE")
+    alias ("$(CONTROLLER):RELAIS-$(NRC)-SOURCEG") # backward compat
+    field (DESC, "source for this relais")
+    field (ZRST, "OFF")
+    field (ONST, "ON")
+    field (TWST, "S1")
+    field (THST, "S2")
+    field (FRST, "S3")
+    field (FVST, "S4")
+    field (SXST, "S5")
+    field (SVST, "S6")
+    field (FLNK, "$(CONTROLLER):RELAIS$(NR)-SET")
+    field (ASG,  "$(ASG=)")
+}
+
+record (ao, "$(CONTROLLER):RELAIS$(NR)-LOW")
+{
+    alias ("$(CONTROLLER):RELAIS-$(NRC)-LOW")
+    alias ("$(CONTROLLER):RELAIS-$(NRC)-LOWG") # backward compat
+    field (DESC, "low limit for this relais")
+    field (LOPR, "0")
+    field (HOPR, "1500")
+    field (PREC, "$(PREC=-4)")
+    field (EGU,  "mbar")
+    field (FLNK, "$(CONTROLLER):RELAIS$(NR)-SET")
+    field (ASG,  "$(ASG=)")
+}
+
+record (ao, "$(CONTROLLER):RELAIS$(NR)-HIGH")
+{
+    alias ("$(CONTROLLER):RELAIS-$(NRC)-HIGH")
+    alias ("$(CONTROLLER):RELAIS-$(NRC)-HIGHG") # backward compat
+    field (DESC, "high limit for this relais")
+    field (LOPR, "0")
+    field (HOPR, "1500")
+    field (PREC, "$(PREC=-4)")
+    field (EGU,  "mbar")
+    field (FLNK, "$(CONTROLLER):RELAIS$(NR)-SET")
+    field (ASG,  "$(ASG=)")
+}
+
+record (bo, "$(CONTROLLER):RELAIS$(NR)-SET")
+{
+    field (DESC, "write relais settings")
+    field (DTYP, "stream")
+    field (OUT,  "@TPG366.proto set_relais_setpoint($(CONTROLLER),$(NR)) $(PORT)")
+    field (PRIO, "HIGH")
+    field (SDIS, "$(CONTROLLER):RELAIS$(NR)-UPDATE.PACT")
+    field (FLNK, "$(CONTROLLER):RELAIS$(NR)-SELSENS")
+}
+
+record (bi, "$(CONTROLLER):RELAIS$(NR)-UPDATE")
+{
+    field (DESC, "read back relais settings")
+    field (DTYP, "stream")
+    field (INP,  "@TPG366.proto get_relais_setpoint($(CONTROLLER),$(NR)) $(PORT)")
+    field (PRIO, "LOW")
+    field (SCAN, "10 second")
+}
+
+record (sseq, "$(CONTROLLER):RELAIS$(NR)-SELSENS")
+{
+    field (SELL, "$(CONTROLLER):RELAIS$(NR)-SOURCE")
+    field (SELM, "Specified")
+    field (DOL2, "$(CONTROLLER):SENSOR1-NAME")
+    field (DOL3, "$(CONTROLLER):SENSOR2-NAME")
+    field (DOL4, "$(CONTROLLER):SENSOR3-NAME")
+    field (DOL5, "$(CONTROLLER):SENSOR4-NAME")
+    field (DOL6, "$(CONTROLLER):SENSOR5-NAME")
+    field (DOL7, "$(CONTROLLER):SENSOR6-NAME")
+    field (LNK1, "$(CONTROLLER):RELAIS$(NR)-SENSOR PP")
+    field (LNK2, "$(CONTROLLER):RELAIS$(NR)-SENSOR PP")
+    field (LNK3, "$(CONTROLLER):RELAIS$(NR)-SENSOR PP")
+    field (LNK4, "$(CONTROLLER):RELAIS$(NR)-SENSOR PP")
+    field (LNK5, "$(CONTROLLER):RELAIS$(NR)-SENSOR PP")
+    field (LNK6, "$(CONTROLLER):RELAIS$(NR)-SENSOR PP")
+    field (LNK7, "$(CONTROLLER):RELAIS$(NR)-SENSOR PP")
+    field (PINI, "YES")
+}
+
+record (stringin, "$(CONTROLLER):RELAIS$(NR)-SENSOR")
+{
+    alias("$(CONTROLLER):RELAIS-$(NRC)-SENSOR")
+}
+
+record (sel, "$(CONTROLLER):RELAIS$(NR)-PRESSURE")
+{
+    alias("$(CONTROLLER):RELAIS-$(NRC)-PRESSURE")
+    field (NVL,  "$(CONTROLLER):RELAIS$(NR)-SOURCE")
+    field (SELM, "Specified")
+    field (INPA, "0")
+    field (INPB, "0")
+    field (INPC, "$(CONTROLLER):PRESSURE1 MS")
+    field (INPD, "$(CONTROLLER):PRESSURE2 MS")
+    field (INPF, "$(CONTROLLER):PRESSURE3 MS")
+    field (INPF, "$(CONTROLLER):PRESSURE4 MS")
+    field (INPG, "$(CONTROLLER):PRESSURE5 MS")
+    field (INPH, "$(CONTROLLER):PRESSURE6 MS")
+    field (PREC, "$(PREC=-4)")
+    field (EGU,  "mbar")
+    field (SCAN, "1 second")
+    field (PINI, "YES")
+}

@@ -7,69 +7,146 @@ debug {
     in "%#s";
 }
 
-status {
-    @init {
-    # switch to mbar
-        out $address "UNI,0"; 
-    }
-
-    # read on/off status
-    out $address "SEN"; in ACK; out ENQ;
-    in "%(\$1:ONOFFG.RVAL)d,%(\$2:ONOFFG.RVAL)d,%(\$3:ONOFFG.RVAL)d,%(\$4:ONOFFG.RVAL)d,%(\$5:ONOFFG.RVAL)d,%(\$6:ONOFFG.RVAL)d";
-    # switch to mbar
+set_mbar {
     out $address "UNI,0"; in ACK; out ENQ; in "0"; 
-    # read pressure
-    out $address "PRX"; in ACK; out ENQ;
-    in "%(\$1:STATUS)d,%(\$1:PRESSURE.A)f,"
-       "%(\$2:STATUS)d,%(\$2:PRESSURE.A)f,"
-       "%(\$3:STATUS)d,%(\$3:PRESSURE.A)f,"
-       "%(\$4:STATUS)d,%(\$4:PRESSURE.A)f,"
-       "%(\$5:STATUS)d,%(\$5:PRESSURE.A)f,"
-       "%(\$6:STATUS)d,%(\$6:PRESSURE.A)f";
 }
 
-onoff1 {
+save {
+    out $address "SAV,1"; in ACK; out ENQ; in "0000";
+}
+
+read_onoff {
+    out $address "SEN"; in ACK; out ENQ;
+    in "%(\$1:ONOFFG1.RVAL)d,"
+       "%(\$1:ONOFFG2.RVAL)d,"
+       "%(\$1:ONOFFG3.RVAL)d,"
+       "%(\$1:ONOFFG4.RVAL)d,"
+       "%(\$1:ONOFFG5.RVAL)d,"
+       "%(\$1:ONOFFG6.RVAL)d";
+}
+
+set_onoff1 {
     out $address "SEN,%{1|2},0,0,0,0,0"; in ACK; out ENQ;
-    in "%(\$1:ONOFFG.RVAL)d,%*d,%*d,%*d,%*d,%*d";
+    in "%(\$1:ONOFFG1.RVAL)d,%*d,%*d,%*d,%*d,%*d";
 }
-onoff2 {
+set_onoff2 {
     out $address "SEN,0,%{1|2},0,0,0,0"; in ACK; out ENQ;
-    in "%*d,%(\$1:ONOFFG.RVAL)d,%*d,%*d,%*d,%*d";
+    in "%*d,%(\$1:ONOFFG2.RVAL)d,%*d,%*d,%*d,%*d";
 }
-onoff3 {
+set_onoff3 {
     out $address "SEN,0,0,%{1|2},0,0,0"; in ACK; out ENQ;
-    in "%*d,%*d,%(\$1:ONOFFG.RVAL)d,%*d,%*d,%*d";
+    in "%*d,%*d,%(\$1:ONOFFG3.RVAL)d,%*d,%*d,%*d";
 }
-onoff4 {
+set_onoff4 {
     out $address "SEN,0,0,0,%{1|2},0,0"; in ACK; out ENQ;
-    in "%*d,%*d,%*d,%(\$1:ONOFFG.RVAL)d,%*d,%*d";
+    in "%*d,%*d,%*d,%(\$1:ONOFFG4.RVAL)d,%*d,%*d";
 }
-onoff5 {
+set_onoff5 {
     out $address "SEN,0,0,0,0,%{1|2},0"; in ACK; out ENQ;
-    in "%*d,%*d,%*d,%*d,%(\$1:ONOFFG.RVAL)d,%*d";
+    in "%*d,%*d,%*d,%*d,%(\$1:ONOFFG5.RVAL)d,%*d";
 }
-onoff6 {
+set_onoff6 {
     out $address "SEN,0,0,0,0,0,%{1|2}"; in ACK; out ENQ;
-    in "%*d,%*d,%*d,%*d,%*d,%(\$1:ONOFFG.RVAL)d";
+    in "%*d,%*d,%*d,%*d,%*d,%(\$1:ONOFFG6.RVAL)d";
 }
 
-infos {
+read_pressure_and_status {
+    out $address "PRX"; in ACK; out ENQ;
+    in "%(\$1:STATUS1)d,%(\$1:PRESSURE1.A)f,"
+       "%(\$1:STATUS2)d,%(\$1:PRESSURE2.A)f,"
+       "%(\$1:STATUS3)d,%(\$1:PRESSURE3.A)f,"
+       "%(\$1:STATUS4)d,%(\$1:PRESSURE4.A)f,"
+       "%(\$1:STATUS5)d,%(\$1:PRESSURE5.A)f,"
+       "%(\$1:STATUS6)d,%(\$1:PRESSURE6.A)f";
+}
+
+read_gauge_type {
+    out $address "TID"; in ACK; out ENQ;
+    in "%(\$1:TYPE1)[^,],"
+       "%(\$1:TYPE2)[^,],"
+       "%(\$1:TYPE3)[^,],"
+       "%(\$1:TYPE4)[^,],"
+       "%(\$1:TYPE5)[^,],"
+       "%(\$1:TYPE6)[^,]";
+}
+
+read_names {
+    out $address "CID"; in ACK; out ENQ;
+    in "%#/_+(?=,|$)//"  # remove all trailing _ from the names
+       "%#/_/ /"         # replace _ with space
+       "%(\$1:NAME1)[^,],"
+       "%(\$1:NAME2)[^,],"
+       "%(\$1:NAME3)[^,],"
+       "%(\$1:NAME4)[^,],"
+       "%(\$1:NAME5)[^,],"
+       "%(\$1:NAME6)[^,]";
+}
+
+set_names {
+    out $address "CID,%(\$1:NAME1).8s,"
+                     "%(\$1:NAME2).8s," 
+                     "%(\$1:NAME3).8s," 
+                     "%(\$1:NAME4).8s," 
+                     "%(\$1:NAME5).8s," 
+                     "%(\$1:NAME6).8s"
+        "%#/ /_/";   # replace space with _
+    in ACK; out ENQ;
+    in "%#/_+(?=,|$)//"  # remove all trailing _ from the names
+       "%#/_/ /"         # replace _ with space
+       "%(\$1:NAME1)[^,],"
+       "%(\$1:NAME2)[^,],"
+       "%(\$1:NAME3)[^,],"
+       "%(\$1:NAME4)[^,],"
+       "%(\$1:NAME5)[^,],"
+       "%(\$1:NAME6)[^,]";
+    save;
+}
+
+read_gas {
+    out $address "GAS"; in ACK; out ENQ;
+    in "%(\$1:GAS1){0|1},"
+       "%(\$1:GAS2){0|1},"
+       "%(\$1:GAS3){0|1},"
+       "%(\$1:GAS4){0|1},"
+       "%(\$1:GAS5){0|1},"
+       "%(\$1:GAS6){0|1}";
+}
+
+read_status {
+    set_mbar;
+    read_onoff;
+    read_pressure_and_status;
+}
+
+read_infos {
     @init {
         # display sensor type and name
         out $address "DCB,0,12";
     }
-
-    out $address "TID"; in ACK; out ENQ;
-    in "%(\$1:GAUGE-TYPE)[^,],%(\$2:GAUGE-TYPE)[^,],%(\$3:GAUGE-TYPE)[^,],%(\$4:GAUGE-TYPE)[^,],%(\$5:GAUGE-TYPE)[^,],%(\$6:GAUGE-TYPE)[^,]";
-    out $address "CID"; in ACK; out ENQ;
-    # remove all trailing _ from the names
-    in "%#/_+(?=,|$)//%(\$1:NAME)[^,],%(\$2:NAME)[^,],%(\$3:NAME)[^,],%(\$4:NAME)[^,],%(\$5:NAME)[^,],%(\$6:NAME)[^,]";
+    read_gauge_type;
+    read_names;
+    read_gas;
 }
 
+read_relais_status {
+    out $address "SPS"; in ACK; out ENQ;
+    in "%(\$1:RELAIS1){0|1},"
+       "%(\$1:RELAIS2){0|1},"
+       "%(\$1:RELAIS3){0|1},"
+       "%(\$1:RELAIS4){0|1},"
+       "%(\$1:RELAIS5){0|1},"
+       "%(\$1:RELAIS6){0|1}";
+}
 
-relaisStatus {
-    out $address "SPS" CR;
-    in ACK;
-    out ENQ;
-    in "%(\$2:SETPOINT1.VAL){0|1},%(\$2:SETPOINT2.VAL){0|1},%(\$2:SETPOINT3.VAL){0|1},%(\$2:SETPOINT4.VAL){0|1},%(\$2:SETPOINT5.VAL){0|1},%(\$2:SETPOINT6.VAL){0|1}";
+get_relais_setpoint {
+    out $address "SP\$2"; in ACK; out ENQ;
+    in "%(\$1:RELAIS\$2-SOURCE)d,%(\$1:RELAIS\$2-LOW)E,%(\$1:RELAIS\$2-HIGH)E";
+}
+
+set_relais_setpoint {
+    out $address "SP\$2,%(\$1:RELAIS\$2-SOURCE)d,%(\$1:RELAIS\$2-LOW).4E,%(\$1:RELAIS\$2-HIGH).4E";
+    in ACK; out ENQ;
+    in "%*d,%*E,%*E";
+    @init { get_relais_setpoint; }
+    save;
 }
