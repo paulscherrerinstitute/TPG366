@@ -28,17 +28,7 @@ record (bi, "$(CONTROLLER):READ-STATUS")
     field (INP,  "@TPG366.proto read_status($(CONTROLLER)) $(PORT)")
     field (PRIO, "MEDIUM")
     field (PINI, "YES")
-    field (FLNK, "$(CONTROLLER):READ-SETPOINTS")
     field (SCAN, "1 second")
-}
-
-record (bi, "$(CONTROLLER):READ-SETPOINTS")
-{
-# reads relais status SETPOINTx (SPS)
-    field (DTYP, "stream")
-    field (INP,  "@TPG366.proto read_relais_status($(CONTROLLER)) $(PORT)")
-    field (PRIO, "MEDIUM")
-    field (PINI, "YES")
 }
 
 record (bi, "$(CONTROLLER):READ-INFOS")

@@ -7,6 +7,16 @@
 # PREC        Precision, defaults to -3 (3 digit exponential)
 # ASG         Access security group
 
+record (bi, "$(CONTROLLER):READ-SETPOINTS")
+{
+# reads relais status SETPOINTx (SPS)
+    field (DTYP, "stream")
+    field (INP,  "@TPG366.proto read_relais_status($(CONTROLLER)) $(PORT)")
+    field (PRIO, "MEDIUM")
+    field (PINI, "YES")
+    field (SCAN, "1 second")
+}
+
 record (bi, "$(CONTROLLER):RELAIS$(NR)")
 {
     alias ("$(CONTROLLER):RELAIS-$(NRC)")
