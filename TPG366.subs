@@ -7,16 +7,6 @@
 #                      default to $(CONTROLLER)-SENSORx with x = 1 ... 6
 
 file TPG366.template
-{
-  { S1="$(SENSOR1=$(CONTROLLER)-SENSOR1)"
-    S2="$(SENSOR2=$(CONTROLLER)-SENSOR2)"
-    S3="$(SENSOR3=$(CONTROLLER)-SENSOR3)"
-    S4="$(SENSOR4=$(CONTROLLER)-SENSOR4)"
-    S5="$(SENSOR5=$(CONTROLLER)-SENSOR5)"
-    S6="$(SENSOR6=$(CONTROLLER)-SENSOR6)"
-  }
-}
-file TPG366-Sensor.template
 { pattern
 # Mandatory macros:
 # CH: Channel number 1...6
