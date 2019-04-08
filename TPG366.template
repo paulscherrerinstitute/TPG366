@@ -1,15 +1,15 @@
 # Mandatory macros:
-# CONTROLLER: MaxGauge name
-# SENSOR: Vaccum sensor name
+# CONTROLLER  MaxGauge name
+# SENSOR      Vaccum sensor name
 
 # Optional Macros:
-# WARN  = Warn (MINOR) level, defaults to Inf (No warning)
-# ALARM = Alarm (MAJOR) level, defaults to Inf (No alarm)
-# MIN = Minimal range exponent, defaults to -11
-# MAX = Maximal range exponent, defaults to -3
-# PREC = Precision, defaults to -3 (3 digit exponential)
+# WARN        Warn (MINOR) level, defaults to Inf (No warning)
+# ALARM       Alarm (MAJOR) level, defaults to Inf (No alarm)
+# MIN         Minimal range exponent, defaults to -11
+# MAX         Maximal range exponent, defaults to -3
+# PREC        Precision, defaults to -3 (3 digit exponential)
 
-# Many records get set be either $(CONTROLLER):READ-STATUS or $(CONTROLLER):READ-INFOS
+# Many records are set by either $(CONTROLLER):READ-STATUS or $(CONTROLLER):READ-INFOS
 
 record (waveform, "$(CONTROLLER):DEBUG")
 {

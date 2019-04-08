@@ -1,3 +1,12 @@
+# Mandatory macros:
+# CONTROLLER  MaxGauge name
+# NR          Index number of the setpoint (1...6)
+# NRC         Character label of the setpoint (A...F, must correspond to NR)
+
+# Optional Macros:
+# PREC        Precision, defaults to -3 (3 digit exponential)
+# ASG         Access security group
+
 record (bi, "$(CONTROLLER):RELAIS$(NR)")
 {
     alias ("$(CONTROLLER):RELAIS-$(NRC)")
@@ -96,11 +105,13 @@ record (scalcout, "$(CONTROLLER):RELAIS$(NR)-SELSENS")
 
 record (stringin, "$(CONTROLLER):RELAIS$(NR)-SENSOR")
 {
+    field (DESC, "sensor used for relais")
     alias("$(CONTROLLER):RELAIS-$(NRC)-SENSOR")
 }
 
 record (sel, "$(CONTROLLER):RELAIS$(NR)-PRESSURE")
 {
+    field (DESC, "pressure used for relais")
     alias("$(CONTROLLER):RELAIS-$(NRC)-PRESSURE")
     field (NVL,  "$(CONTROLLER):RELAIS$(NR)-SOURCE")
     field (SELM, "Specified")
