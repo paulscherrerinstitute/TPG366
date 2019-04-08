@@ -2,40 +2,34 @@
 # CONTROLLER: Name of the MaxiGauge
 # PORT:       Asyn port of the MaxiGauge
 
+# In the following macro names x stands for 1...6 (per channel) or _ (all channels)
 # Optional macros:
-# SENSOR1 ... SENSOR6: Names of the vacuum sensors
-#                      default to $(CONTROLLER)-SENSORx with x = 1 ... 6
+# SENSORx: Names of the vacuum sensors, default to $(CONTROLLER)-SENSORx
+# WARNx  = MINOR alarm level, defaults Inf (no warning)
+# ALARMx = MAJOR alarm level, defaults Inf (no alarm)
+# MINx = Minimal range exponent, defaults to -11
+# MAXx = Maximal range exponent, defaults to -3
+# EGUx = Engeneering units, default to "mbar"
+# PRECx = Precision, defaults to -3 (3 digit exponential)
 
 file TPG366.template
 { pattern
-# Mandatory macros:
-# CH: Channel number 1...6
-# CONTROLLER: MaxGauge name
-# SENSOR: Vaccum sensor name
-
-# Optional Macros:
-# WARN  = Warn (MINOR) level, defaults to Inf (No warning)
-# ALARM = Alarm (MAJOR) level, defaults to Inf (No alarm)
-# MIN = Minimal range exponent, defaults to -11
-# MAX = Maximal range exponent, defaults to -3
-# EGU = Engeneering units, default to "mbar"
-# PREC = Precision, defaults to -3 (3 digit exponential)
-  {CH SENSOR PREC MIN MAX WARN ALARM}
-  { 1 "$(SENSOR1=$(CONTROLLER)-SENSOR1)" "$(PREC1=-3)" "$(MIN1=-3)" "$(MAX1=-11)" "$(WARN1=Inf)" "$(ALARM1=Inf)" }
-  { 2 "$(SENSOR2=$(CONTROLLER)-SENSOR2)" "$(PREC2=-3)" "$(MIN2=-3)" "$(MAX2=-11)" "$(WARN2=Inf)" "$(ALARM2=Inf)" }
-  { 3 "$(SENSOR3=$(CONTROLLER)-SENSOR3)" "$(PREC3=-3)" "$(MIN3=-3)" "$(MAX3=-11)" "$(WARN3=Inf)" "$(ALARM3=Inf)" }
-  { 4 "$(SENSOR4=$(CONTROLLER)-SENSOR4)" "$(PREC4=-3)" "$(MIN4=-3)" "$(MAX4=-11)" "$(WARN4=Inf)" "$(ALARM4=Inf)" }
-  { 5 "$(SENSOR5=$(CONTROLLER)-SENSOR5)" "$(PREC5=-3)" "$(MIN5=-3)" "$(MAX5=-11)" "$(WARN5=Inf)" "$(ALARM5=Inf)" }
-  { 6 "$(SENSOR6=$(CONTROLLER)-SENSOR6)" "$(PREC6=-3)" "$(MIN6=-3)" "$(MAX6=-11)" "$(WARN6=Inf)" "$(ALARM6=Inf)" }
+  {CH    SENSOR                             PREC                  MIN                 MAX                   WARN                    ALARM                   }
+  { 1 "$(SENSOR1=$(CONTROLLER)-SENSOR1)" "$(PREC1=$(PREC_=-3))" "$(MIN1=$(MIN_=-3))" "$(MAX1=$(MAX_=-11))" "$(WARN1=$(WARN_=Inf))" "$(ALARM1=$(ALARM_=Inf))" }
+  { 2 "$(SENSOR2=$(CONTROLLER)-SENSOR2)" "$(PREC2=$(PREC_=-3))" "$(MIN2=$(MIN_=-3))" "$(MAX2=$(MAX_=-11))" "$(WARN2=$(WARN_=Inf))" "$(ALARM2=$(ALARM_=Inf))" }
+  { 3 "$(SENSOR3=$(CONTROLLER)-SENSOR3)" "$(PREC3=$(PREC_=-3))" "$(MIN3=$(MIN_=-3))" "$(MAX3=$(MAX_=-11))" "$(WARN3=$(WARN_=Inf))" "$(ALARM3=$(ALARM_=Inf))" }
+  { 4 "$(SENSOR4=$(CONTROLLER)-SENSOR4)" "$(PREC4=$(PREC_=-3))" "$(MIN4=$(MIN_=-3))" "$(MAX4=$(MAX_=-11))" "$(WARN4=$(WARN_=Inf))" "$(ALARM4=$(ALARM_=Inf))" }
+  { 5 "$(SENSOR5=$(CONTROLLER)-SENSOR5)" "$(PREC5=$(PREC_=-3))" "$(MIN5=$(MIN_=-3))" "$(MAX5=$(MAX_=-11))" "$(WARN5=$(WARN_=Inf))" "$(ALARM5=$(ALARM_=Inf))" }
+  { 6 "$(SENSOR6=$(CONTROLLER)-SENSOR6)" "$(PREC6=$(PREC_=-3))" "$(MIN6=$(MIN_=-3))" "$(MAX6=$(MAX_=-11))" "$(WARN6=$(WARN_=Inf))" "$(ALARM6=$(ALARM_=Inf))" }
 }
 
 file TPG366-Setpoint.template
 { pattern
-  {NR NRC}
-  {1  A}
-  {2  B}
-  {3  C}
-  {4  D}
-  {5  E}
-  {6  F}
+  {NR NRC   PREC}
+  {1  A  "$(PREC1=$(PREC_=-3))" }
+  {2  B  "$(PREC2=$(PREC_=-3))" }
+  {3  C  "$(PREC3=$(PREC_=-3))" }
+  {4  D  "$(PREC4=$(PREC_=-3))" }
+  {5  E  "$(PREC5=$(PREC_=-3))" }
+  {6  F  "$(PREC6=$(PREC_=-3))" }
 }
