@@ -6,7 +6,7 @@
 # WARN        Warn (MINOR) level, defaults to Inf (No warning)
 # ALARM       Alarm (MAJOR) level, defaults to Inf (No alarm)
 # MIN         Minimal range exponent, defaults to -11
-# MAX         Maximal range exponent, defaults to -3
+# MAX         Maximal range exponent, defaults to 3
 # PREC        Precision, defaults to -3 (3 digit exponential)
 
 # Many records are set by either $(CONTROLLER):READ-STATUS or $(CONTROLLER):READ-INFOS
@@ -56,7 +56,7 @@ record (calc, "$(CONTROLLER):PRESSURE$(CH)")
     field (EGU,  "mbar")
     field (PREC, "$(PREC=-4)")
     field (LOPR, "1e$(MIN=-11)")
-    field (HOPR, "1e$(MAX=-3)")
+    field (HOPR, "1e$(MAX=3)")
     field (HIGH, "$(WARN=Inf)")
     field (HSV,  "MINOR")
     field (HIHI, "$(ALARM=Inf)")
@@ -91,7 +91,7 @@ record (mbbi, "$(CONTROLLER):ONOFFG$(CH)")
     alias ("$(SENSOR):ONOFFG")
     field (DTYP, "Raw Soft Channel")
     field (ZRVL, "1")  field (ZRST, "OFF")
-    field (ONVL, "2")  field (ONST, "ON") 
+    field (ONVL, "2")  field (ONST, "ON")
     field (TWVL, "0")  field (TWST, "not switchable")
     field (FLNK, "$(CONTROLLER):ONOFF$(CH)-UPDATER")
 }
