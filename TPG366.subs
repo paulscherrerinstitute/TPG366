@@ -15,7 +15,7 @@
 
 global {ASG=OPERATORRESTRICTED}
 
-file TPG366.template
+file TPG366-Sensor.template
 { pattern
   {CH  SENSOR                                     PREC                   MIN                  MAX                   WARN                    ALARM                   }
   { 1 "$(S1=$(SENSOR1=$(CONTROLLER)-SENSOR1))" "$(PREC1=$(PREC_=-3))" "$(MIN1=$(MIN_=-11))" "$(MAX1=$(MAX_=3))" "$(WARN1=$(WARN_=Inf))" "$(ALARM1=$(ALARM_=Inf))" }
