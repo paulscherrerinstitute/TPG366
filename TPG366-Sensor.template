@@ -37,7 +37,6 @@ record (bi, "$(CONTROLLER):READ-INFOS")
     field (DTYP, "stream")
     field (INP,  "@TPG366.proto read_infos($(CONTROLLER)) $(PORT)")
     field (PRIO, "LOW")
-    field (PINI, "YES")
     field (SCAN, "10 second")
 }
 
@@ -98,11 +97,10 @@ record (mbbi, "$(CONTROLLER):ONOFFG$(CH)")
 
 record (calcout, "$(CONTROLLER):ONOFF$(CH)-UPDATER")
 {
-    field (INPA, "$(CONTROLLER):ONOFF$(CH)")
+    field (INPA, "$(CONTROLLER):ONOFF$(CH)-UPDATER.B")
     field (INPB, "$(CONTROLLER):ONOFFG$(CH) MS CP")
-    #field (INPC, "$(CONTROLLER):ONOFF-BL")
-    # not blocked and granted switch and switch differ
-    field (CALC, "C==0&&A!=B")
+    field (INPC, "$(CONTROLLER):ONOFF$(CH)")
+    field (CALC, "B>1||(B#C&&A#B)")
     field (OOPT, "When Non-zero")
     field (DOPT, "Use OCAL")
     field (OCAL, "B>0")
@@ -119,11 +117,19 @@ record (bo, "$(CONTROLLER):ONOFF$(CH)")
     field (OUT,  "@TPG366.proto set_onoff$(CH)($(CONTROLLER)) $(PORT)")
     field (ASG,  "$(ASG=)")
     field (PRIO, "HIGH")
+    field (FLNK, "$(CONTROLLER):ONOFF$(CH)-BL")
 }
+
+record (calcout, "$(CONTROLLER):ONOFF$(CH)-BL")
+{
+    field (ODLY, "10")
+    field (CALC, "0")
+}
+
 
 record (stringin, "$(CONTROLLER):TYPE$(CH)")
 {
-    alias("$(SENSOR):TYPE")
+    alias("$(SENSOR):GAUGE-TYPE")
     alias("$(CONTROLLER):SENSOR$(CH)-TYPE")
 }
 

@@ -27,27 +27,27 @@ read_onoff {
 
 set_onoff1 {
     out $address "SEN,%{1|2},0,0,0,0,0"; in ACK; out ENQ;
-    in "%(\$1:ONOFFG1.RVAL)d,%*d,%*d,%*d,%*d,%*d";
+    in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff2 {
     out $address "SEN,0,%{1|2},0,0,0,0"; in ACK; out ENQ;
-    in "%*d,%(\$1:ONOFFG2.RVAL)d,%*d,%*d,%*d,%*d";
+    in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff3 {
     out $address "SEN,0,0,%{1|2},0,0,0"; in ACK; out ENQ;
-    in "%*d,%*d,%(\$1:ONOFFG3.RVAL)d,%*d,%*d,%*d";
+    in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff4 {
     out $address "SEN,0,0,0,%{1|2},0,0"; in ACK; out ENQ;
-    in "%*d,%*d,%*d,%(\$1:ONOFFG4.RVAL)d,%*d,%*d";
+    in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff5 {
     out $address "SEN,0,0,0,0,%{1|2},0"; in ACK; out ENQ;
-    in "%*d,%*d,%*d,%*d,%(\$1:ONOFFG5.RVAL)d,%*d";
+    in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff6 {
     out $address "SEN,0,0,0,0,0,%{1|2}"; in ACK; out ENQ;
-    in "%*d,%*d,%*d,%*d,%*d,%(\$1:ONOFFG6.RVAL)d";
+    in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 
 read_pressure_and_status {
@@ -122,31 +122,34 @@ read_infos {
     @init {
         # display sensor type and name
         out $address "DCB,0,12";
+        read_gauge_type;
+        read_names;
+        read_gas;
     }
     read_gauge_type;
     read_names;
     read_gas;
 }
 
-read_relais_status {
+read_relay_status {
     out $address "SPS"; in ACK; out ENQ;
-    in "%(\$1:RELAIS1){0|1},"
-       "%(\$1:RELAIS2){0|1},"
-       "%(\$1:RELAIS3){0|1},"
-       "%(\$1:RELAIS4){0|1},"
-       "%(\$1:RELAIS5){0|1},"
-       "%(\$1:RELAIS6){0|1}";
+    in "%(\$1:RELAY1){0|1},"
+       "%(\$1:RELAY2){0|1},"
+       "%(\$1:RELAY3){0|1},"
+       "%(\$1:RELAY4){0|1},"
+       "%(\$1:RELAY5){0|1},"
+       "%(\$1:RELAY6){0|1}";
 }
 
-get_relais_setpoint {
+get_relay_setpoint {
     out $address "SP\$2"; in ACK; out ENQ;
-    in "%(\$1:RELAIS\$2-SOURCE)d,%(\$1:RELAIS\$2-LOW)E,%(\$1:RELAIS\$2-HIGH)E";
+    in "%(\$1:RELAY\$2-SOURCE)d,%(\$1:RELAY\$2-LOW)E,%(\$1:RELAY\$2-HIGH)E";
 }
 
-set_relais_setpoint {
-    out $address "SP\$2,%(\$1:RELAIS\$2-SOURCE)d,%(\$1:RELAIS\$2-LOW).4E,%(\$1:RELAIS\$2-HIGH).4E";
+set_relay_setpoint {
+    out $address "SP\$2,%(\$1:RELAY\$2-SOURCE)d,%(\$1:RELAY\$2-LOW).4E,%(\$1:RELAY\$2-HIGH).4E";
     in ACK; out ENQ;
     in "%*d,%*E,%*E";
-    @init { get_relais_setpoint; }
     save;
+    @init { get_relay_setpoint; }
 }
