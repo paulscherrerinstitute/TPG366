@@ -40,13 +40,6 @@ record (bi, "$(CONTROLLER):READ-INFOS")
     field (SCAN, "10 second")
 }
 
-record (bo, "$(CONTROLLER):SET-NAMES")
-{
-    field (DTYP, "stream")
-    field (OUT,  "@TPG366.proto set_names($(CONTROLLER)) $(PORT)")
-    field (SDIS, "$(CONTROLLER):READ-INFOS.PACT")
-    field (PRIO, "HIGH")
-}
 record (calc, "$(CONTROLLER):PRESSURE$(CH)")
 {
     alias ("$(SENSOR):PRESSURE")
@@ -115,8 +108,8 @@ record (bo, "$(CONTROLLER):ONOFF$(CH)")
     field (ONAM, "ON")
     field (DTYP, "stream")
     field (OUT,  "@TPG366.proto set_onoff$(CH)($(CONTROLLER)) $(PORT)")
-    field (ASG,  "$(ASG=)")
     field (PRIO, "HIGH")
+    field (ASG,  "$(ASG=)")
     field (FLNK, "$(CONTROLLER):ONOFF$(CH)-BL")
 }
 
@@ -131,12 +124,14 @@ record (stringin, "$(CONTROLLER):TYPE$(CH)")
 {
     alias("$(SENSOR):GAUGE-TYPE")
     alias("$(CONTROLLER):SENSOR$(CH)-TYPE")
+    field (DESC, "Gauge type")
 }
 
-record (mbbi, "$(CONTROLLER):GAS$(CH)")
+record (mbbo, "$(CONTROLLER):GAS$(CH)")
 {
     alias("$(SENSOR):GAS")
     alias("$(SENSOR):GAS_SP")
+    field (DESC, "Gas correction")
     field (ZRST, "Air/N2")
     field (ONST, "Ar")
     field (TWST, "H2")
@@ -145,18 +140,37 @@ record (mbbi, "$(CONTROLLER):GAS$(CH)")
     field (FVST, "Kr")
     field (SXST, "Xe")
     field (SVST, "Other")
+    field (ASG,  "$(ASG=)")
+    field (FLNK, "$(CONTROLLER):SET-GAS")
+}
+
+record (bo, "$(CONTROLLER):SET-GAS")
+{
+    field (DTYP, "stream")
+    field (OUT,  "@TPG366.proto set_gas($(CONTROLLER)) $(PORT)")
+    field (SDIS, "$(CONTROLLER):READ-INFOS.PACT")
+    field (PRIO, "HIGH")
 }
 
 record (stringout, "$(CONTROLLER):NAME$(CH)")
 {
     alias("$(SENSOR):NAME")
     alias("$(CONTROLLER):NAMEG$(CH)")
+    field (DESC, "Sensor label")
+    field (ASG,  "$(ASG=)")
     field (FLNK, "$(CONTROLLER):SET-NAMES")
+}
+
+record (bo, "$(CONTROLLER):SET-NAMES")
+{
+    field (DTYP, "stream")
+    field (OUT,  "@TPG366.proto set_names($(CONTROLLER)) $(PORT)")
+    field (SDIS, "$(CONTROLLER):READ-INFOS.PACT")
+    field (PRIO, "HIGH")
 }
 
 record (stringin, "$(CONTROLLER):SENSOR$(CH)-NAME")
 {
-    # for backward compatibility
     field (DESC, "EPICS channel name")
     field (VAL,  "$(SENSOR)")
     field (PINI, "YES")

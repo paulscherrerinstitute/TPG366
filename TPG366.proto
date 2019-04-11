@@ -104,12 +104,28 @@ set_names {
 
 read_gas {
     out $address "GAS"; in ACK; out ENQ;
-    in "%(\$1:GAS1){0|1},"
-       "%(\$1:GAS2){0|1},"
-       "%(\$1:GAS3){0|1},"
-       "%(\$1:GAS4){0|1},"
-       "%(\$1:GAS5){0|1},"
-       "%(\$1:GAS6){0|1}";
+    in "%(\$1:GAS1)d,"
+       "%(\$1:GAS2)d,"
+       "%(\$1:GAS3)d,"
+       "%(\$1:GAS4)d,"
+       "%(\$1:GAS5)d,"
+       "%(\$1:GAS6)d";
+}
+
+set_gas {
+    out $address "GAS,%(\$1:GAS1)d,"
+                     "%(\$1:GAS2)d,"
+                     "%(\$1:GAS3)d,"
+                     "%(\$1:GAS4)d,"
+                     "%(\$1:GAS5)d,"
+                     "%(\$1:GAS6)d";
+    in ACK; out ENQ;
+    in "%(\$1:GAS1)d,"
+       "%(\$1:GAS2)d,"
+       "%(\$1:GAS3)d,"
+       "%(\$1:GAS4)d,"
+       "%(\$1:GAS5)d,"
+       "%(\$1:GAS6)d";
 }
 
 read_status {

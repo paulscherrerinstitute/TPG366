@@ -24,8 +24,9 @@ require TPG366
 Use the `drvAsynIPPortConfigure` command once for each Maxigauge to connect
 to. The MaxiGauge should be connected to Ethernet and have a static IP
 address. The MaxiGauge could boot with DHCP, but it does not provide a host
-name. Thus the IP address must be known to EPICS and thus be fixed. The
-MaxiGauge runs the server on TCP port 8000.
+name. Thus the IP address must be known to EPICS and thus be fixed. 
+If the MaxiGauge has a host name in the name server, that name can be used
+instead of the IP address. The MaxiGauge runs the server on TCP port 8000.
 
 The asyn port name is arbitrary but when connecting to multiple MaxiGauge
 devices from one IOC, each must have its own port name.
@@ -113,22 +114,24 @@ The substitution file instantiates the six sensors and six setpoints of
 one MaxiGauge. Thus for each MaxiGauge, one line in the startup script is
 needed.
 
-The macros are similar to using the templates directly, but are postfixed
-with numbers 1...6 for the six sensors and setpoints, or with an underscore
-to define a default for all six sensors or setpoints. Thus it is possible
-to use a default, e.g. PREC_ for most sensors but overwrite PREC1 for
-one sensor.
+The macros are similar to using the templates directly (see above), but are
+postfixed with numbers 1...6 for the six sensors, or with an underscore
+to define a default for all six sensors. Thus it is possible to use a
+default, e.g. PREC_ for most sensors but overwrite PREC1 for one sensor.
 
-Individual precision of the setpoints can be set using PRECA...F in
-addition to PREC1...6 in order to allow settings independent of the
-sensors.
+Individual precision of the six setpoints can be set using PRECA...F in
+addition to PREC1...6 for the sensore in order to allow settings
+independent of the sensors. To define a default for all six setpoints use
+PRECSP. If none of those is set then PREC_ is used, which defaults to 3.
 
-Because of the limited length of the line, some shortcuts are available.
-In particular a common sensor prefix can be given as P and the rest of
-the sensor names can be gicen as S1...6.
+Because of the limited length of the command line, some shortcuts are
+available. In particular a common sensor prefix can be given as P and the
+rest of the sensor names can be given as S1...6. Thus the name of sensor 1
+is $(SENSOR1) or $(P)$(S1).
 
-The default for P is "$(CONTROLLER)-" and the defaults for S1...6 (or
-SENSOR1...6) are "SENSOR1" ... "SENSOR6".
+The default for P is "$(CONTROLLER)-" and the defaults for S1...6 are
+"SENSOR1" ... "SENSOR6". Thus the default name of sensor 1 is
+$(CONTROLLER)-SENSOR1.
 
 Example startup script using "TPG366.subs".
 
