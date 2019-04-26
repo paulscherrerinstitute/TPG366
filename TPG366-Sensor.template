@@ -11,14 +11,20 @@
 
 # Many records are set by either $(CONTROLLER):READ-STATUS or $(CONTROLLER):READ-INFOS
 
-record (waveform, "$(CONTROLLER):DEBUG")
+record (stringout, "$(CONTROLLER):DEBUG")
 {
     field (DESC, "Generic command record")
     field (DTYP, "stream")
-    field (FTVL, "CHAR")
-    field (NELM, "512")
     field (PRIO, "HIGH")
-    field (INP,  "@TPG366.proto debug $(PORT)")
+    field (OUT,  "@TPG366.proto debug $(PORT)")
+}
+
+record (stringout, "$(CONTROLLER):PVP-DEBUG")
+{
+    field (DESC, "Generic command record")
+    field (DTYP, "stream")
+    field (PRIO, "HIGH")
+    field (OUT,  "@TPG366-PVP.proto debug $(PORT)")
 }
 
 record (bi, "$(CONTROLLER):READ-STATUS")

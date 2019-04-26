@@ -12,41 +12,58 @@ for each of the six relays of the TPG366.
 ### Load the module "TPG366"
 
 Use the `require` command to load the module. It provides the templates and
-a generic substitution file.
+a generic substitution file as well as the StreamDevice protocols.
 
 Startup script:
-```
-require TPG366
-```
+
+    require TPG366
 
 ### Create an asyn IP port
 
-Use the `drvAsynIPPortConfigure` command once for each Maxigauge to connect
-to. The MaxiGauge should be connected to Ethernet and have a static IP
-address. The MaxiGauge could boot with DHCP, but it does not provide a host
+The TPG366 must be connected to Ethernet and have a static IP
+address. The TPG366 could boot with DHCP, but it does not provide a host
 name. Thus the IP address must be known to EPICS and thus be fixed. 
-If the MaxiGauge has a host name in the name server, that name can be used
-instead of the IP address. The MaxiGauge runs the server on TCP port 8000.
 
-The asyn port name is arbitrary but when connecting to multiple MaxiGauge
+Use the `drvAsynIPPortConfigure` command once for each Maxigauge to connect
+to. If the TPG366 has a host name in the name server, that name can be used
+instead of the IP address. The TPG366 runs the server on TCP port 8000.
+
+The asyn port name is arbitrary but when connecting to multiple TPG366
 devices from one IOC, each must have its own port name.
 
-Example startup script line for one MaxiGauge, using port name MG1 and
+Example startup script line for one TPG366, using port name MG1 and
 IP address 172.10.20.30:
-```
-drvAsynIPPortConfigure MG1, 172.10.20.30:8000
-```
+
+    drvAsynIPPortConfigure MG1 172.10.20.30:8000
+
+### Create an asyn serial port on a Moxa DA-66x
+
+The TPG366 must be connected to a serial port on a Moxa. Only one TPG366
+can be connected to each port. The port must run on 9600 baud (the default)
+and must be configured for "RS485-2WIRES" using the `setinterface` program.
+
+Use the `drvAsynSerialPortConfigure` command once for each Maxigauge to connect
+to. The serial ports are named `/dev/ttyM0` ... `/dev/ttyM15`.
+
+The asyn port name is arbitrary but when connecting to multiple TPG366
+devices from one IOC, each must have its own port name.
+
+Example startup script line for one TPG366, using port name MG2 connected
+to port `/dev/ttyM0` on a Moxa DA-66x:
+
+    ! setinterface /dev/ttyM0 1
+    drvAsynSerialPortConfigure MG2 /dev/ttyM0
 
 ### Alternative A: Create a substitution file
 
-For each of the six sensors of the MaxiGauge, instantiate
+For each of the six sensors of the TPG366, instantiate
 TPG366-Sensor.template once.
 
 The following macros can be used. Some are mandatory, some have default
 values:
 
     * PORT        - Asyn port name created previosly (mandatory)
-    * CONTROLLER  - Name of the MaxiGauge (mandatory)
+    * CONTROLLER  - Name of the TPG366 (mandatory)
     * CH          - Sensor channel number 1...6 (mandatory)
     * SENSOR      - Name of the sensor, (mandatory)
     * PREC        - Precision, defaults to -3 (3 digits exponential)
@@ -64,7 +81,7 @@ The following macros can be used. Some are mandatory, some have default
 values:
 
     * PORT        - Asyn port name as before (mandatory)
-    * CONTROLLER  - Name of the MaxiGauge as before (mandatory)
+    * CONTROLLER  - Name of the TPG366 as before (mandatory)
     * NR          - Number of the relay 1...6 (mandatory)
     * NRC         - Matching character A...F (mandatory)
     * PREC        - Precision, defaults to -3 (3 digits exponential)
@@ -76,33 +93,31 @@ available from the module.
 As `PORT` and `CONTROLLER` are the same for all six sensors and setpoints,
 a global setting is recommended.
 
-```
-global { "PORT=MG1,CONTROLLER=SIN-VMMG-100,ASG=VACOP" }
-file TPG366-Sensor.template
-{ pattern
-  {CH  SENSOR              MIN   MAX   WARN    ALARM }
-  { 1  SINSB05-VMCP-A010    -4    -3   Inf     Inf   }
-  { 2  SINSB05-VMCC-A010   -11     3   2E-07   5E-07 }
-  { 3  SINSB05-VMCC-A020   -11     3   2E-07   5E-07 }
-  { 4  SINSB05-VMCC-A030   -11     3   2E-07   5E-07 }
-  { 5  SINSB05-VMCC-A040   -11     3   2E-07   5E-07 }
-  { 6  SINSB05-VMCP-A025    -4    -3   Inf     Inf   }
-}
-file TPG366-Setpoint.template
-{ pattern
-  {NR  NRC }
-  { 1   A  }
-  { 2   B  }
-  { 3   C  }
-  { 4   D  }
-  { 5   E  }
-  { 6   F  }
-}
-```
+    global { "PORT=MG1,CONTROLLER=SIN-VMMG-100,ASG=VACOP" }
+    file TPG366-Sensor.template
+    { pattern
+      {CH  SENSOR              MIN   MAX   WARN    ALARM }
+      { 1  SINSB05-VMCP-A010    -4    -3   Inf     Inf   }
+      { 2  SINSB05-VMCC-A010   -11     3   2E-07   5E-07 }
+      { 3  SINSB05-VMCC-A020   -11     3   2E-07   5E-07 }
+      { 4  SINSB05-VMCC-A030   -11     3   2E-07   5E-07 }
+      { 5  SINSB05-VMCC-A040   -11     3   2E-07   5E-07 }
+      { 6  SINSB05-VMCP-A025    -4    -3   Inf     Inf   }
+    }
+    file TPG366-Setpoint.template
+    { pattern
+      {NR  NRC }
+      { 1   A  }
+      { 2   B  }
+      { 3   C  }
+      { 4   D  }
+      { 5   E  }
+      { 6   F  }
+    }
 
-Repeat this pattern for multiple MaxiGauge devices. Redefine the global
+Repeat this pattern for multiple TPG366 devices. Redefine the global
 settings before instantiating "TPG366-Sensor.template" and
-"TPG366-Setpoint.template" six time each for each MaxiGauge.
+"TPG366-Setpoint.template" six time each for each TPG366.
 
 ### Alternative B: Use predefined substitution file
 
@@ -111,7 +126,7 @@ startup script. However all macro parameters need to be given on the same
 line and the length of the line is limited.
 
 The substitution file instantiates the six sensors and six setpoints of
-one MaxiGauge. Thus for each MaxiGauge, one line in the startup script is
+one TPG366. Thus for each TPG366, one line in the startup script is
 needed.
 
 The macros are similar to using the templates directly (see above), but are
@@ -135,8 +150,6 @@ $(CONTROLLER)-SENSOR1.
 
 Example startup script using "TPG366.subs".
 
-```
-require TPG366
-drvAsynIPPortConfigure MG1,129.129.130.224:8000
-dbLoadTemplate TPG366.subs,"PORT=MG1,CONTROLLER=SIN-VMMG-100,WARN_=2E-07,ALARM_=5E-07,P=SINSB05-VMC,S1=P-A010,MIN1=-4,MAX1=-3,WARN1=Inf,ALARM1=Inf,S2=C-A010,S3=C-A020,S4=C-A030,S5=C-A040,S6=P-A025,MIN6=-4,MAX6=-3,WARN6=Inf,ALARM6=Inf"
-```
+    require TPG366
+    drvAsynIPPortConfigure MG1,129.129.130.224:8000
+    dbLoadTemplate TPG366.subs,"PORT=MG1,CONTROLLER=SIN-VMMG-100,WARN_=2E-07,ALARM_=5E-07,P=SINSB05-VMC,S1=P-A010,MIN1=-4,MAX1=-3,WARN1=Inf,ALARM1=Inf,S2=C-A010,S3=C-A020,S4=C-A030,S5=C-A040,S6=P-A025,MIN6=-4,MAX6=-3,WARN6=Inf,ALARM6=Inf"
