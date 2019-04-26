@@ -1,0 +1,27 @@
+Terminator = CR;
+
+debug {
+    out "%s%+<sum>";
+    in  "%#s";
+}
+
+read_onoff {
+    out "\$1\$20004100%+<sum>";
+    in  "\$1\$21004103%3u%+<sum>";
+}
+
+set_onoff {
+    out "\$1\$20004103%03u%+<sum>";
+    in  "\$1\$21004103%=3u%+<sum>";
+}
+
+read_pressure {
+    out "\$1\$20074000%+<sum>";
+    in  "\$1\$21074006%6u%+<sum>";
+}
+
+read_gauge_type {
+    out "\$1\$20034900%+<sum>";
+    in  "\$1\$21034906%6c%+<sum>";
+}
+

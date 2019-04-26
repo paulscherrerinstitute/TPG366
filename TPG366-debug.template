@@ -1,0 +1,15 @@
+record (stringout, "$(CONTROLLER):DEBUG")
+{
+    field (DESC, "Generic command record")
+    field (DTYP, "stream")
+    field (PRIO, "HIGH")
+    field (OUT,  "@TPG366.proto debug $(PORT)")
+}
+
+record (stringout, "$(CONTROLLER):PVP-DEBUG")
+{
+    field (DESC, "Generic command record")
+    field (DTYP, "stream")
+    field (PRIO, "HIGH")
+    field (OUT,  "@TPG366-PVP.proto debug $(PORT)")
+}
