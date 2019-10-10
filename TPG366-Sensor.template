@@ -16,34 +16,26 @@ record (stringout, "$(CONTROLLER):DEBUG")
     field (DESC, "Generic command record")
     field (DTYP, "stream")
     field (PRIO, "HIGH")
-    field (OUT,  "@TPG366.proto debug $(PORT)")
-}
-
-record (stringout, "$(CONTROLLER):PVP-DEBUG")
-{
-    field (DESC, "Generic command record")
-    field (DTYP, "stream")
-    field (PRIO, "HIGH")
-    field (OUT,  "@TPG366-PVP.proto debug $(PORT)")
+    field (OUT,  "@TPG366.proto debug(,$(ADDR=1)) $(PORT)")
 }
 
 record (bi, "$(CONTROLLER):READ-STATUS")
 {
 # reads ONOFFG (SEN), STATUS and PRESSURE (PRX)  of all sensors
     field (DTYP, "stream")
-    field (INP,  "@TPG366.proto read_status($(CONTROLLER)) $(PORT)")
+    field (INP,  "@TPG366.proto read_status($(CONTROLLER),$(ADDR=1)) $(PORT)")
     field (PRIO, "MEDIUM")
     field (PINI, "YES")
-    field (SCAN, "1 second")
+    field (SCAN, "$(FASTSCAN=1 second)")
 }
 
 record (bi, "$(CONTROLLER):READ-INFOS")
 {
 # reads GAUGE-TYPE (TID) and NAME (CID) of all sensors
     field (DTYP, "stream")
-    field (INP,  "@TPG366.proto read_infos($(CONTROLLER)) $(PORT)")
+    field (INP,  "@TPG366.proto read_infos($(CONTROLLER),$(ADDR=1)) $(PORT)")
     field (PRIO, "LOW")
-    field (SCAN, "10 second")
+    field (SCAN, "$(SLOWSCAN=10 second)")
 }
 
 record (calc, "$(CONTROLLER):PRESSURE$(CH)")
@@ -113,7 +105,7 @@ record (bo, "$(CONTROLLER):ONOFF$(CH)")
     field (ZNAM, "OFF")
     field (ONAM, "ON")
     field (DTYP, "stream")
-    field (OUT,  "@TPG366.proto set_onoff$(CH)($(CONTROLLER)) $(PORT)")
+    field (OUT,  "@TPG366.proto set_onoff$(CH)($(CONTROLLER),$(ADDR=1)) $(PORT)")
     field (PRIO, "HIGH")
     field (ASG,  "$(ASG=)")
     field (FLNK, "$(CONTROLLER):ONOFF$(CH)-BL")
@@ -153,7 +145,7 @@ record (mbbo, "$(CONTROLLER):GAS$(CH)")
 record (bo, "$(CONTROLLER):SET-GAS")
 {
     field (DTYP, "stream")
-    field (OUT,  "@TPG366.proto set_gas($(CONTROLLER)) $(PORT)")
+    field (OUT,  "@TPG366.proto set_gas($(CONTROLLER),$(ADDR=1)) $(PORT)")
     field (SDIS, "$(CONTROLLER):READ-INFOS.PACT")
     field (PRIO, "HIGH")
 }
@@ -170,7 +162,7 @@ record (stringout, "$(CONTROLLER):NAME$(CH)")
 record (bo, "$(CONTROLLER):SET-NAMES")
 {
     field (DTYP, "stream")
-    field (OUT,  "@TPG366.proto set_names($(CONTROLLER)) $(PORT)")
+    field (OUT,  "@TPG366.proto set_names($(CONTROLLER),$(ADDR=1)) $(PORT)")
     field (SDIS, "$(CONTROLLER):READ-INFOS.PACT")
     field (PRIO, "HIGH")
 }

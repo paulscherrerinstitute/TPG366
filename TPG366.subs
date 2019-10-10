@@ -4,18 +4,22 @@
 
 # In the following macro names x stands for 1...6 (per channel) or _ (all channels)
 # Optional macros:
+# ADDR        address 1-9 (default: 1, ignored when connected to TCP network)
 # SENSORx     Names of the vacuum sensors, default to $(CONTROLLER)-SENSORx
 # P,Sx        Shortcuts for SENSORx: $(SENSORx)=$(P)$(Sx)
 # WARNx       MINOR alarm level, defaults Inf (no warning)
 # ALARMx      MAJOR alarm level, defaults Inf (no alarm)
 # MINx        Minimal range exponent, defaults to -11
 # MAXx        Maximal range exponent, defaults to -3
-# EGUx        Engeneering units, default to "mbar"
+# EGUx        Engeneering units, defaults to "mbar"
 # PRECx       Precision, defaults to -3 (3 digit exponential)
+# ASG         Access Security Group, defaults to ""
+# FASTSCAN    Scanrate for pressure etc, defaults to "1 second"
+# SLOWSCAN    Scanrate for sensor names etc, defaults to "10 second"
 
 file TPG366-Sensor.template
 { pattern
-  {CH  SENSOR                                     PREC                   MIN                  MAX                   WARN                    ALARM                   }
+  {CH    SENSOR                                        PREC                   MIN                  MAX                   WARN                    ALARM                   }
   { 1 "$(SENSOR1=$(P=$(CONTROLLER)-)$(S1=SENSOR1))" "$(PREC1=$(PREC_=-3))" "$(MIN1=$(MIN_=-11))" "$(MAX1=$(MAX_=3))" "$(WARN1=$(WARN_=Inf))" "$(ALARM1=$(ALARM_=Inf))" }
   { 2 "$(SENSOR2=$(P=$(CONTROLLER)-)$(S2=SENSOR2))" "$(PREC2=$(PREC_=-3))" "$(MIN2=$(MIN_=-11))" "$(MAX2=$(MAX_=3))" "$(WARN2=$(WARN_=Inf))" "$(ALARM2=$(ALARM_=Inf))" }
   { 3 "$(SENSOR3=$(P=$(CONTROLLER)-)$(S3=SENSOR3))" "$(PREC3=$(PREC_=-3))" "$(MIN3=$(MIN_=-11))" "$(MAX3=$(MAX_=3))" "$(WARN3=$(WARN_=Inf))" "$(ALARM3=$(ALARM_=Inf))" }
@@ -26,11 +30,11 @@ file TPG366-Sensor.template
 
 file TPG366-Setpoint.template
 { pattern
-  {NR NRC   PREC}
-  {1  A  "$(PRECA=$(PRECSP=$(PREC_=-3)))" }
-  {2  B  "$(PRECB=$(PRECSP=$(PREC_=-3)))" }
-  {3  C  "$(PRECC=$(PRECSP=$(PREC_=-3)))" }
-  {4  D  "$(PRECD=$(PRECSP=$(PREC_=-3)))" }
-  {5  E  "$(PRECE=$(PRECSP=$(PREC_=-3)))" }
-  {6  F  "$(PRECF=$(PRECSP=$(PREC_=-3)))" }
+  {NR NRC    PREC}
+  {1   A  "$(PRECA=$(PRECSP=$(PREC_=-3)))" }
+  {2   B  "$(PRECB=$(PRECSP=$(PREC_=-3)))" }
+  {3   C  "$(PRECC=$(PRECSP=$(PREC_=-3)))" }
+  {4   D  "$(PRECD=$(PRECSP=$(PREC_=-3)))" }
+  {5   E  "$(PRECE=$(PRECSP=$(PREC_=-3)))" }
+  {6   F  "$(PRECF=$(PRECSP=$(PREC_=-3)))" }
 }

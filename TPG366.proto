@@ -1,27 +1,29 @@
+ReplyTimeout = 200;
 InTerminator = CR LF;
 # No outTerminator because we need to send ENQ clean or RS485 will mess up the reply.
 
+ADDR = ESC "0\$2";
 handshake { in ACK; out ENQ; }
 
 debug {
-    out "%s\r"; handshake;
+    out $ADDR "%s\r"; handshake;
     in "%#s";
 }
 
 set_mbar {
-    out "UNI,0\r"; handshake; in "0"; 
+    out $ADDR "UNI,0\r"; handshake; in "0"; 
 }
 
 display_sendor_id {
-    out "DCB,0,12\r"; handshake; in "0,12";
+    out $ADDR "DCB,0,12\r"; handshake; in "0,12";
 }
 
 save {
-    out "SAV,1\r"; handshake; in "0000";
+    out $ADDR "SAV,1\r"; handshake; in "0000";
 }
 
 read_onoff {
-    out "SEN\r"; handshake;
+    out $ADDR "SEN\r"; handshake;
     in "%(\$1:ONOFFG1.RVAL)d,"
        "%(\$1:ONOFFG2.RVAL)d,"
        "%(\$1:ONOFFG3.RVAL)d,"
@@ -31,32 +33,32 @@ read_onoff {
 }
 
 set_onoff1 {
-    out "SEN,%{1|2},0,0,0,0,0\r"; handshake;
+    out $ADDR "SEN,%{1|2},0,0,0,0,0\r"; handshake;
     in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff2 {
-    out "SEN,0,%{1|2},0,0,0,0\r"; handshake;
+    out $ADDR "SEN,0,%{1|2},0,0,0,0\r"; handshake;
     in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff3 {
-    out "SEN,0,0,%{1|2},0,0,0\r"; handshake;
+    out $ADDR "SEN,0,0,%{1|2},0,0,0\r"; handshake;
     in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff4 {
-    out "SEN,0,0,0,%{1|2},0,0\r"; handshake;
+    out $ADDR "SEN,0,0,0,%{1|2},0,0\r"; handshake;
     in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff5 {
-    out "SEN,0,0,0,0,%{1|2},0\r"; handshake;
+    out $ADDR "SEN,0,0,0,0,%{1|2},0\r"; handshake;
     in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 set_onoff6 {
-    out "SEN,0,0,0,0,0,%{1|2}\r"; handshake;
+    out $ADDR "SEN,0,0,0,0,0,%{1|2}\r"; handshake;
     in "%*d,%*d,%*d,%*d,%*d,%*d";
 }
 
 read_pressure_and_status {
-    out "PRX\r"; handshake;
+    out $ADDR "PRX\r"; handshake;
     in "%(\$1:STATUS1)d,%(\$1:PRESSURE1.A)f,"
        "%(\$1:STATUS2)d,%(\$1:PRESSURE2.A)f,"
        "%(\$1:STATUS3)d,%(\$1:PRESSURE3.A)f,"
@@ -66,7 +68,7 @@ read_pressure_and_status {
 }
 
 read_gauge_type {
-    out "TID\r"; handshake;
+    out $ADDR "TID\r"; handshake;
     in "%(\$1:TYPE1)[^,],"
        "%(\$1:TYPE2)[^,],"
        "%(\$1:TYPE3)[^,],"
@@ -76,7 +78,7 @@ read_gauge_type {
 }
 
 read_names {
-    out "CID\r"; handshake;
+    out $ADDR "CID\r"; handshake;
     in "%#/_+(?=,|$)//"  # remove all trailing _ from the names
        "%#/_/ /"         # replace _ with space
        "%(\$1:NAME1)[^,],"
@@ -88,13 +90,14 @@ read_names {
 }
 
 set_names {
-    out "CID,%(\$1:NAME1).8s,"
+    out $ADDR "CID,%(\$1:NAME1).8s,"
             "%(\$1:NAME2).8s,"
             "%(\$1:NAME3).8s,"
             "%(\$1:NAME4).8s,"
             "%(\$1:NAME5).8s,"
             "%(\$1:NAME6).8s\r"
-        "%#/ /_/";   # replace space with _
+        "%#/ /_/"        # replace space chars with _ 
+        "%#/.*/\U0/";    # convert to upper case
     handshake;
     in "%#/_+(?=,|$)//"  # remove all trailing _ from the names
        "%#/_/ /"         # replace _ with space
@@ -108,7 +111,7 @@ set_names {
 }
 
 read_gas {
-    out "GAS\r"; handshake;
+    out $ADDR "GAS\r"; handshake;
     in "%(\$1:GAS1)d,"
        "%(\$1:GAS2)d,"
        "%(\$1:GAS3)d,"
@@ -118,7 +121,7 @@ read_gas {
 }
 
 set_gas {
-    out "GAS,%(\$1:GAS1)d,"
+    out $ADDR "GAS,%(\$1:GAS1)d,"
             "%(\$1:GAS2)d,"
             "%(\$1:GAS3)d,"
             "%(\$1:GAS4)d,"
@@ -141,11 +144,10 @@ read_status {
 
 read_infos {
     @init {
-        out "\r"; in "%*#s";
-        display_sendor_id;
         read_gauge_type;
         read_names;
         read_gas;
+        display_sendor_id;
     }
     read_gauge_type;
     read_names;
@@ -153,7 +155,7 @@ read_infos {
 }
 
 read_relay_status {
-    out "SPS\r"; handshake;
+    out $ADDR "SPS\r"; handshake;
     in "%(\$1:RELAY1){0|1},"
        "%(\$1:RELAY2){0|1},"
        "%(\$1:RELAY3){0|1},"
@@ -163,16 +165,16 @@ read_relay_status {
 }
 
 get_relay_setpoint {
-    out "SP\$2\r"; handshake;
-    in "%(\$1:RELAY\$2-SOURCE)d,%(\$1:RELAY\$2-LOW)E,%(\$1:RELAY\$2-HIGH)E";
+    out $ADDR "SP\$3\r"; handshake;
+    in "%(\$1:RELAY\$3-SOURCE)d,%(\$1:RELAY\$3-LOW)E,%(\$1:RELAY\$3-HIGH)E";
 }
 
 set_relay_setpoint {
     @init {
-        out "\r"; in "%*#s";
+        out $ADDR "\r"; in "%*#s";
         get_relay_setpoint;
     }
-    out "SP\$2,%(\$1:RELAY\$2-SOURCE)d,%(\$1:RELAY\$2-LOW).4E,%(\$1:RELAY\$2-HIGH).4E\r";
+    out $ADDR "SP\$3,%(\$1:RELAY\$3-SOURCE)d,%(\$1:RELAY\$3-LOW).4E,%(\$1:RELAY\$3-HIGH).4E\r";
     handshake;
     in "%*d,%*E,%*E";
     save;

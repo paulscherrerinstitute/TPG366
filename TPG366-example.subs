@@ -1,0 +1,21 @@
+global { PORT=P1 ADDR=1 CONTROLLER=SIN-VMMG-100 ASG=VACOP }
+file TPG366-Sensor.template
+{ pattern
+  {CH  SENSOR              MIN   MAX   WARN    ALARM }
+  { 1  SINSB05-VMCP-A010    -4    -3   Inf     Inf   }
+  { 2  SINSB05-VMCC-A010   -11     3   2E-07   5E-07 }
+  { 3  SINSB05-VMCC-A020   -11     3   2E-07   5E-07 }
+  { 4  SINSB05-VMCC-A030   -11     3   2E-07   5E-07 }
+  { 5  SINSB05-VMCC-A040   -11     3   2E-07   5E-07 }
+  { 6  SINSB05-VMCP-A025    -4    -3   Inf     Inf   }
+}
+file TPG366-Setpoint.template
+{ pattern
+  {NR  NRC }
+  { 1   A  }
+  { 2   B  }
+  { 3   C  }
+  { 4   D  }
+  { 5   E  }
+  { 6   F  }
+}

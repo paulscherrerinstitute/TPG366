@@ -18,13 +18,13 @@ Startup script:
 
     require TPG366
 
-### Create an asyn IP port
+### Network: Create an asyn IP port
 
 The TPG366 must be connected to Ethernet and have a static IP
 address. The TPG366 could boot with DHCP, but it does not provide a host
 name. Thus the IP address must be known to EPICS and thus be fixed. 
 
-Use the `drvAsynIPPortConfigure` command once for each Maxigauge to connect
+Use the `drvAsynIPPortConfigure` command once for each MaxiGauge to connect
 to. If the TPG366 has a host name in the name server, that name can be used
 instead of the IP address. The TPG366 runs the server on TCP port 8000.
 
@@ -36,23 +36,21 @@ IP address 172.10.20.30:
 
     drvAsynIPPortConfigure MG1 172.10.20.30:8000
 
-### Create an asyn serial port on a Moxa DA-66x
+### Serial: Create an asyn serial port on a Moxa DA-66x
 
-The TPG366 must be connected to a serial port on a Moxa. Only one TPG366
-can be connected to each port. The port must run on 9600 baud (the default)
-and must be configured for "RS485-2WIRES" using the `setinterface` program.
+The TPG366 must be connected to a serial port on a Moxa. The port must
+run on 9600 baud (the default) and must be configured for "RS485-2WIRES"
+using the `setinterface` program.
+The Protocol of the TPG366 must be set to "Mnemonic 3 char".
 
-Use the `drvAsynSerialPortConfigure` command once for each Maxigauge to connect
-to. The serial ports are named `/dev/ttyM0` ... `/dev/ttyM15`.
+At the moment, only one TPG366 can be connected to each port!
+This seems to be a problem in the MaxiGauge firmware.
 
-The asyn port name is arbitrary but when connecting to multiple TPG366
-devices from one IOC, each must have its own port name.
-
-Example startup script line for one TPG366, using port name MG2 connected
-to port `/dev/ttyM0` on a Moxa DA-66x:
+Example startup script line using serial port name P1 for port 1
+(the device name of port 1 is `/dev/ttyM0`):
 
     ! setinterface /dev/ttyM0 1
-    drvAsynSerialPortConfigure MG2 /dev/ttyM0
+    drvAsynSerialPortConfigure P1 /dev/ttyM0
 
 ### Alternative A: Create a substitution file
 
@@ -64,6 +62,7 @@ values:
 
     * PORT        - Asyn port name created previosly (mandatory)
     * CONTROLLER  - Name of the TPG366 (mandatory)
+    * ADDR        - When using addressed mode on RS485 (1-9, default: 1)
     * CH          - Sensor channel number 1...6 (mandatory)
     * SENSOR      - Name of the sensor, (mandatory)
     * PREC        - Precision, defaults to -3 (3 digits exponential)
@@ -90,10 +89,12 @@ values:
 The template files do not need to be installed in the IOC because they are
 available from the module.
 
-As `PORT` and `CONTROLLER` are the same for all six sensors and setpoints,
-a global setting is recommended.
+As `PORT` and `CONTROLLER` and `ADDR` are the same for all six sensors and
+setpoints, a global setting is recommended.
 
-    global { "PORT=MG1,CONTROLLER=SIN-VMMG-100,ASG=VACOP" }
+Example file [TPG366-example.subs](TPG366-example.subs):
+
+    global { PORT=MG1 ADDR=1 CONTROLLER=SIN-VMMG-100 ASG=VACOP }
     file TPG366-Sensor.template
     { pattern
       {CH  SENSOR              MIN   MAX   WARN    ALARM }

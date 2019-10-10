@@ -11,10 +11,10 @@ record (bi, "$(CONTROLLER):READ-SETPOINTS")
 {
 # reads relay status SETPOINTx (SPS)
     field (DTYP, "stream")
-    field (INP,  "@TPG366.proto read_relay_status($(CONTROLLER)) $(PORT)")
+    field (INP,  "@TPG366.proto read_relay_status($(CONTROLLER),$(ADDR=1)) $(PORT)")
     field (PRIO, "MEDIUM")
     field (PINI, "YES")
-    field (SCAN, "1 second")
+    field (SCAN, "$(FASTSCAN=1 second)")
 }
 
 record (bi, "$(CONTROLLER):RELAY$(NR)")
@@ -84,7 +84,7 @@ record (bo, "$(CONTROLLER):RELAY$(NR)-SET")
 {
     field (DESC, "write relay settings")
     field (DTYP, "stream")
-    field (OUT,  "@TPG366.proto set_relay_setpoint($(CONTROLLER),$(NR)) $(PORT)")
+    field (OUT,  "@TPG366.proto set_relay_setpoint($(CONTROLLER),$(ADDR=1),$(NR)) $(PORT)")
     field (PRIO, "HIGH")
     field (SDIS, "$(CONTROLLER):RELAY$(NR)-UPDATE.PACT")
     field (FLNK, "$(CONTROLLER):RELAY$(NR)-SELSENS")
@@ -94,9 +94,9 @@ record (bi, "$(CONTROLLER):RELAY$(NR)-UPDATE")
 {
     field (DESC, "read back relay settings")
     field (DTYP, "stream")
-    field (INP,  "@TPG366.proto get_relay_setpoint($(CONTROLLER),$(NR)) $(PORT)")
+    field (INP,  "@TPG366.proto get_relay_setpoint($(CONTROLLER),$(ADDR=1),$(NR)) $(PORT)")
     field (PRIO, "LOW")
-    field (SCAN, "10 second")
+#    field (SCAN, "$(SLOWSCAN=10 second)")
 }
 
 record (scalcout, "$(CONTROLLER):RELAY$(NR)-SELSENS")
@@ -135,6 +135,6 @@ record (sel, "$(CONTROLLER):RELAY$(NR)-PRESSURE")
     field (INPH, "$(CONTROLLER):PRESSURE6 MS")
     field (PREC, "$(PREC=-4)")
     field (EGU,  "mbar")
-    field (SCAN, "1 second")
+    field (SCAN, "$(FASTSCAN=1 second)")
     field (PINI, "YES")
 }
