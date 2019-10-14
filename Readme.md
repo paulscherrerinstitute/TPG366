@@ -7,6 +7,12 @@ should be instantiated once for each of the six vacuum sensors of the
 TPG366, and TPG366-Setpoint.template, which sould be instantiated once
 for each of the six relays of the TPG366.
 
+The TPG366 can be connected either to Ethernet or to a RS485 serial bus.
+
+Also see the [Operating Instructions](TPG366_Operating_Instructions.pdf)
+and the [Communication Protocol](TPG366_Communication_Protocol.pdf)
+documents.
+
 ## Usage
 
 ### Load the module "TPG366"
