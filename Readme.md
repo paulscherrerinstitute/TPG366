@@ -44,19 +44,21 @@ IP address 172.10.20.30:
 
 ### Serial: Create an asyn serial port on a Moxa DA-66x
 
-The TPG366 must be connected to a serial port on a Moxa. The port must
-run on 9600 baud (the default) and must be configured for "RS485-2WIRES"
-using the `setinterface` program.
-The Protocol of the TPG366 must be set to "Mnemonic 3 char".
+The TPG366 must be connected to a serial port on a Moxa.
+The serial port on the Moxa must be configured for "RS485-2WIRES"
+using the `setinterface` program with parameter 1.
 
-At the moment, only one TPG366 can be connected to each port!
-This seems to be a problem in the MaxiGauge firmware.
+The "Protocol" of the TPG366 must be set to "Mnemonic 3 char".
+The port can run up to 38400 baud. (Configured as "Baudrate USB"!)
+Higher baud rates cause problems.
+Each TPG366 on the same bus must have a unique "RS485 ADDRESS".
 
-Example startup script line using serial port name P1 for port 1
-(the device name of port 1 is `/dev/ttyM0`):
+Example startup script using serial port name P1 for port 1
+(the device name of port 1 is `/dev/ttyM0`) with 38400 baud:
 
     ! setinterface /dev/ttyM0 1
     drvAsynSerialPortConfigure P1 /dev/ttyM0
+    asynSetOption P1 0 baud 38400
 
 ### Alternative A: Create a substitution file
 
