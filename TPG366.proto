@@ -171,7 +171,6 @@ get_relay_setpoint {
 
 set_relay_setpoint {
     @init {
-        out $ADDR "\r"; in "%*#s";
         get_relay_setpoint;
     }
     out $ADDR "SP\$3,%(\$1:RELAY\$3-SOURCE)d,%(\$1:RELAY\$3-LOW).4E,%(\$1:RELAY\$3-HIGH).4E\r";
