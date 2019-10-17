@@ -49,8 +49,9 @@ The serial port on the Moxa must be configured for "RS485-2WIRES"
 using the `setinterface` program with parameter 1.
 
 The "Protocol" of the TPG366 must be set to "Mnemonic 3 char".
-The port can run up to 38400 baud. (Configured as "Baudrate USB"!)
-Higher baud rates cause problems.
+The port can run up to 57600 baud. (Configured as "Baudrate USB"!)
+But the higher the baud rate the more transmission problems
+occur. Using 115200 baud is not possible.
 Each TPG366 on the same bus must have a unique "RS485 ADDRESS".
 
 Example startup script using serial port name P1 for port 1
