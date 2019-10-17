@@ -94,7 +94,7 @@ record (calcout, "$(CONTROLLER):ONOFF$(CH)-UPDATER")
     field (CALC, "B>1||(B#C&&A#B)")
     field (OOPT, "When Non-zero")
     field (DOPT, "Use OCAL")
-    field (OCAL, "B>0")
+    field (OCAL, "B>0")                       # not switchable is always on
     field (OUT,  "$(SENSOR):ONOFF PP")
     field (IVOA, "Don't drive outputs")
 }
@@ -109,6 +109,7 @@ record (bo, "$(CONTROLLER):ONOFF$(CH)")
     field (PRIO, "HIGH")
     field (ASG,  "$(ASG=)")
     field (FLNK, "$(CONTROLLER):ONOFF$(CH)-BL")
+    field (SDIS, "$(CONTROLLER):ONOFFG$(CH)") field (DISV, "2") # don't write if not switchable
 }
 
 record (calcout, "$(CONTROLLER):ONOFF$(CH)-BL")
@@ -116,7 +117,6 @@ record (calcout, "$(CONTROLLER):ONOFF$(CH)-BL")
     field (ODLY, "10")
     field (CALC, "0")
 }
-
 
 record (stringin, "$(CONTROLLER):TYPE$(CH)")
 {
