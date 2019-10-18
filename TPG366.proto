@@ -107,7 +107,7 @@ set_names { #used
        "%(\$1:NAME4)[^,],"
        "%(\$1:NAME5)[^,],"
        "%(\$1:NAME6)[^,]";
-    save;
+    out "SAV,1" CR; handshake; in "0000";
 }
 
 read_gas {
@@ -176,5 +176,5 @@ set_relay_setpoint { #used
     addr; out "SP\$3,%(\$1:RELAY\$3-SOURCE)d,%(\$1:RELAY\$3-LOW).4E,%(\$1:RELAY\$3-HIGH).4E" CR;
     handshake;
     in "%*d,%*E,%*E";
-    save;
+    out "SAV,0" CR; handshake; in "0000";
 }
