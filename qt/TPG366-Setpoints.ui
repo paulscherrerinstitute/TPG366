@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>575</width>
-    <height>199</height>
+    <height>200</height>
    </rect>
   </property>
   <property name="styleSheet">
@@ -401,50 +401,6 @@ border-radius: 2px;
      <enum>caLineEdit::exponential</enum>
     </property>
    </widget>
-   <widget class="caLineEdit" name="calineedit_12">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>50</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="channel" stdset="0">
-     <string notr="true">$(DEV):RELAY1-PRESSURE</string>
-    </property>
-    <property name="background">
-     <color>
-      <red>200</red>
-      <green>200</green>
-      <blue>200</blue>
-     </color>
-    </property>
-    <property name="colorMode">
-     <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="framePresent" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="frameLineWidth" stdset="0">
-     <number>1</number>
-    </property>
-    <property name="precision">
-     <number>1</number>
-    </property>
-    <property name="precisionMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="unitsEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="formatType">
-     <enum>caLineEdit::string</enum>
-    </property>
-   </widget>
    <widget class="caLineEdit" name="calineedit_23">
     <property name="geometry">
      <rect>
@@ -613,50 +569,6 @@ border-radius: 2px;
     </property>
     <property name="formatType">
      <enum>caLineEdit::exponential</enum>
-    </property>
-   </widget>
-   <widget class="caLineEdit" name="calineedit_28">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>100</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="channel" stdset="0">
-     <string notr="true">$(DEV):RELAY3-PRESSURE</string>
-    </property>
-    <property name="background">
-     <color>
-      <red>200</red>
-      <green>200</green>
-      <blue>200</blue>
-     </color>
-    </property>
-    <property name="colorMode">
-     <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="framePresent" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="frameLineWidth" stdset="0">
-     <number>1</number>
-    </property>
-    <property name="precision">
-     <number>1</number>
-    </property>
-    <property name="precisionMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="unitsEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="formatType">
-     <enum>caLineEdit::string</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="catextentry_10">
@@ -876,50 +788,6 @@ border-radius: 2px;
      <number>1</number>
     </property>
    </widget>
-   <widget class="caLineEdit" name="calineedit_42">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>150</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="channel" stdset="0">
-     <string notr="true">$(DEV):RELAY5-PRESSURE</string>
-    </property>
-    <property name="background">
-     <color>
-      <red>200</red>
-      <green>200</green>
-      <blue>200</blue>
-     </color>
-    </property>
-    <property name="colorMode">
-     <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="framePresent" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="frameLineWidth" stdset="0">
-     <number>1</number>
-    </property>
-    <property name="precision">
-     <number>1</number>
-    </property>
-    <property name="precisionMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="unitsEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="formatType">
-     <enum>caLineEdit::string</enum>
-    </property>
-   </widget>
    <widget class="caLineEdit" name="calineedit_16">
     <property name="geometry">
      <rect>
@@ -1004,94 +872,6 @@ border-radius: 2px;
     </property>
     <property name="formatType">
      <enum>caLineEdit::exponential</enum>
-    </property>
-   </widget>
-   <widget class="caLineEdit" name="calineedit_55">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>175</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="channel" stdset="0">
-     <string notr="true">$(DEV):RELAY6-PRESSURE</string>
-    </property>
-    <property name="background">
-     <color>
-      <red>200</red>
-      <green>200</green>
-      <blue>200</blue>
-     </color>
-    </property>
-    <property name="colorMode">
-     <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="framePresent" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="frameLineWidth" stdset="0">
-     <number>1</number>
-    </property>
-    <property name="precision">
-     <number>1</number>
-    </property>
-    <property name="precisionMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="unitsEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="formatType">
-     <enum>caLineEdit::string</enum>
-    </property>
-   </widget>
-   <widget class="caLineEdit" name="calineedit_35">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>125</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="channel" stdset="0">
-     <string notr="true">$(DEV):RELAY4-PRESSURE</string>
-    </property>
-    <property name="background">
-     <color>
-      <red>200</red>
-      <green>200</green>
-      <blue>200</blue>
-     </color>
-    </property>
-    <property name="colorMode">
-     <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="framePresent" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="frameLineWidth" stdset="0">
-     <number>1</number>
-    </property>
-    <property name="precision">
-     <number>1</number>
-    </property>
-    <property name="precisionMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="unitsEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="formatType">
-     <enum>caLineEdit::string</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="catextentry_20">
@@ -1308,50 +1088,6 @@ border-radius: 2px;
      <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
-   <widget class="caLineEdit" name="calineedit_21">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>75</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="channel" stdset="0">
-     <string notr="true">$(DEV):RELAY2-PRESSURE</string>
-    </property>
-    <property name="background">
-     <color>
-      <red>200</red>
-      <green>200</green>
-      <blue>200</blue>
-     </color>
-    </property>
-    <property name="colorMode">
-     <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="framePresent" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="frameLineWidth" stdset="0">
-     <number>1</number>
-    </property>
-    <property name="precision">
-     <number>1</number>
-    </property>
-    <property name="precisionMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="unitsEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="formatType">
-     <enum>caLineEdit::string</enum>
-    </property>
-   </widget>
    <widget class="caLabel" name="calabel_9">
     <property name="geometry">
      <rect>
@@ -1362,7 +1098,7 @@ border-radius: 2px;
      </rect>
     </property>
     <property name="text">
-     <string>A</string>
+     <string>1</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -1391,7 +1127,7 @@ border-radius: 2px;
      </rect>
     </property>
     <property name="text">
-     <string>B</string>
+     <string>2</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -1420,7 +1156,7 @@ border-radius: 2px;
      </rect>
     </property>
     <property name="text">
-     <string>C</string>
+     <string>3</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -1449,7 +1185,7 @@ border-radius: 2px;
      </rect>
     </property>
     <property name="text">
-     <string>D</string>
+     <string>4</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -1478,7 +1214,7 @@ border-radius: 2px;
      </rect>
     </property>
     <property name="text">
-     <string>E</string>
+     <string>5</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -1507,7 +1243,7 @@ border-radius: 2px;
      </rect>
     </property>
     <property name="text">
-     <string>F</string>
+     <string>6</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -1538,6 +1274,9 @@ border-radius: 2px;
     <property name="channel" stdset="0">
      <string notr="true">$(DEV):RELAY1</string>
     </property>
+    <property name="colorMode">
+     <enum>caLed::Alarm</enum>
+    </property>
     <property name="falseColor">
      <color>
       <red>255</red>
@@ -1564,6 +1303,9 @@ border-radius: 2px;
     </property>
     <property name="channel" stdset="0">
      <string notr="true">$(DEV):RELAY2</string>
+    </property>
+    <property name="colorMode">
+     <enum>caLed::Alarm</enum>
     </property>
     <property name="falseColor">
      <color>
@@ -1592,6 +1334,9 @@ border-radius: 2px;
     <property name="channel" stdset="0">
      <string notr="true">$(DEV):RELAY3</string>
     </property>
+    <property name="colorMode">
+     <enum>caLed::Alarm</enum>
+    </property>
     <property name="falseColor">
      <color>
       <red>255</red>
@@ -1618,6 +1363,9 @@ border-radius: 2px;
     </property>
     <property name="channel" stdset="0">
      <string notr="true">$(DEV):RELAY4</string>
+    </property>
+    <property name="colorMode">
+     <enum>caLed::Alarm</enum>
     </property>
     <property name="falseColor">
      <color>
@@ -1646,6 +1394,9 @@ border-radius: 2px;
     <property name="channel" stdset="0">
      <string notr="true">$(DEV):RELAY5</string>
     </property>
+    <property name="colorMode">
+     <enum>caLed::Alarm</enum>
+    </property>
     <property name="falseColor">
      <color>
       <red>255</red>
@@ -1672,6 +1423,9 @@ border-radius: 2px;
     </property>
     <property name="channel" stdset="0">
      <string notr="true">$(DEV):RELAY6</string>
+    </property>
+    <property name="colorMode">
+     <enum>caLed::Alarm</enum>
     </property>
     <property name="falseColor">
      <color>
@@ -1792,29 +1546,741 @@ border-radius: 2px;
      <string>DEV=$(DEV)</string>
     </property>
    </widget>
+   <widget class="caFrame" name="caframe">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>50</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="visibility">
+     <enum>caFrame::Calc</enum>
+    </property>
+    <property name="visibilityCalc">
+     <string notr="true">A&gt;1</string>
+    </property>
+    <property name="channel" stdset="0">
+     <string notr="true">$(DEV):RELAY1-SOURCE</string>
+    </property>
+    <widget class="caLineEdit" name="calineedit_12">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY1-PRESSURE</string>
+     </property>
+     <property name="background">
+      <color>
+       <red>200</red>
+       <green>200</green>
+       <blue>200</blue>
+      </color>
+     </property>
+     <property name="colorMode">
+      <enum>caLineEdit::Static</enum>
+     </property>
+     <property name="framePresent" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="frameLineWidth" stdset="0">
+      <number>1</number>
+     </property>
+     <property name="precision">
+      <number>1</number>
+     </property>
+     <property name="precisionMode">
+      <enum>caLineEdit::Channel</enum>
+     </property>
+     <property name="unitsEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="formatType">
+      <enum>caLineEdit::string</enum>
+     </property>
+    </widget>
+    <widget class="caFrame" name="caframe_7">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="visibility">
+      <enum>caFrame::IfNotZero</enum>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY1-PRSTATUS</string>
+     </property>
+     <widget class="caLineEdit" name="calineedit_25">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>80</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="channel" stdset="0">
+       <string notr="true">$(DEV):RELAY1-PRSTATUS</string>
+      </property>
+      <property name="background">
+       <color>
+        <red>200</red>
+        <green>200</green>
+        <blue>200</blue>
+       </color>
+      </property>
+      <property name="colorMode">
+       <enum>caLineEdit::Static</enum>
+      </property>
+      <property name="framePresent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="frameLineWidth" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="unitsEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="formatType">
+       <enum>caLineEdit::string</enum>
+      </property>
+     </widget>
+    </widget>
+    <zorder>calineedit_12</zorder>
+    <zorder>caframe_12</zorder>
+    <zorder>caframe_8</zorder>
+    <zorder>calineedit_43</zorder>
+    <zorder>calineedit_25</zorder>
+    <zorder>calineedit_24</zorder>
+    <zorder>calineedit_36</zorder>
+    <zorder>calineedit_56</zorder>
+    <zorder>calineedit_13</zorder>
+    <zorder>caframe_11</zorder>
+    <zorder>caframe_10</zorder>
+    <zorder>caframe_7</zorder>
+    <zorder>calineedit_31</zorder>
+    <zorder>caframe_9</zorder>
+    <zorder>calineedit_25</zorder>
+    <zorder>caframe_7</zorder>
+   </widget>
+   <widget class="caFrame" name="caframe_2">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>75</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="visibility">
+     <enum>caFrame::Calc</enum>
+    </property>
+    <property name="visibilityCalc">
+     <string notr="true">A&gt;1</string>
+    </property>
+    <property name="channel" stdset="0">
+     <string notr="true">$(DEV):RELAY2-SOURCE</string>
+    </property>
+    <widget class="caLineEdit" name="calineedit_21">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY2-PRESSURE</string>
+     </property>
+     <property name="background">
+      <color>
+       <red>200</red>
+       <green>200</green>
+       <blue>200</blue>
+      </color>
+     </property>
+     <property name="colorMode">
+      <enum>caLineEdit::Static</enum>
+     </property>
+     <property name="framePresent" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="frameLineWidth" stdset="0">
+      <number>1</number>
+     </property>
+     <property name="precision">
+      <number>1</number>
+     </property>
+     <property name="precisionMode">
+      <enum>caLineEdit::Channel</enum>
+     </property>
+     <property name="unitsEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="formatType">
+      <enum>caLineEdit::string</enum>
+     </property>
+    </widget>
+    <widget class="caFrame" name="caframe_8">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="visibility">
+      <enum>caFrame::IfNotZero</enum>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY2-PRSTATUS</string>
+     </property>
+     <widget class="caLineEdit" name="calineedit_33">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>80</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="channel" stdset="0">
+       <string notr="true">$(DEV):RELAY2-PRSTATUS</string>
+      </property>
+      <property name="background">
+       <color>
+        <red>200</red>
+        <green>200</green>
+        <blue>200</blue>
+       </color>
+      </property>
+      <property name="colorMode">
+       <enum>caLineEdit::Static</enum>
+      </property>
+      <property name="framePresent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="frameLineWidth" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="unitsEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="formatType">
+       <enum>caLineEdit::string</enum>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="caFrame" name="caframe_3">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>100</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="visibility">
+     <enum>caFrame::Calc</enum>
+    </property>
+    <property name="visibilityCalc">
+     <string notr="true">A&gt;1</string>
+    </property>
+    <property name="channel" stdset="0">
+     <string notr="true">$(DEV):RELAY3-SOURCE</string>
+    </property>
+    <widget class="caLineEdit" name="calineedit_28">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY3-PRESSURE</string>
+     </property>
+     <property name="background">
+      <color>
+       <red>200</red>
+       <green>200</green>
+       <blue>200</blue>
+      </color>
+     </property>
+     <property name="colorMode">
+      <enum>caLineEdit::Static</enum>
+     </property>
+     <property name="framePresent" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="frameLineWidth" stdset="0">
+      <number>1</number>
+     </property>
+     <property name="precision">
+      <number>1</number>
+     </property>
+     <property name="precisionMode">
+      <enum>caLineEdit::Channel</enum>
+     </property>
+     <property name="unitsEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="formatType">
+      <enum>caLineEdit::string</enum>
+     </property>
+    </widget>
+    <widget class="caFrame" name="caframe_9">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="visibility">
+      <enum>caFrame::IfNotZero</enum>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY3-PRSTATUS</string>
+     </property>
+     <widget class="caLineEdit" name="calineedit_36">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>80</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="channel" stdset="0">
+       <string notr="true">$(DEV):RELAY3-PRSTATUS</string>
+      </property>
+      <property name="background">
+       <color>
+        <red>200</red>
+        <green>200</green>
+        <blue>200</blue>
+       </color>
+      </property>
+      <property name="colorMode">
+       <enum>caLineEdit::Static</enum>
+      </property>
+      <property name="framePresent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="frameLineWidth" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="unitsEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="formatType">
+       <enum>caLineEdit::string</enum>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="caFrame" name="caframe_4">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>125</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="visibility">
+     <enum>caFrame::Calc</enum>
+    </property>
+    <property name="visibilityCalc">
+     <string notr="true">A&gt;1</string>
+    </property>
+    <property name="channel" stdset="0">
+     <string notr="true">$(DEV):RELAY4-SOURCE</string>
+    </property>
+    <widget class="caLineEdit" name="calineedit_35">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY4-PRESSURE</string>
+     </property>
+     <property name="background">
+      <color>
+       <red>200</red>
+       <green>200</green>
+       <blue>200</blue>
+      </color>
+     </property>
+     <property name="colorMode">
+      <enum>caLineEdit::Static</enum>
+     </property>
+     <property name="framePresent" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="frameLineWidth" stdset="0">
+      <number>1</number>
+     </property>
+     <property name="precision">
+      <number>1</number>
+     </property>
+     <property name="precisionMode">
+      <enum>caLineEdit::Channel</enum>
+     </property>
+     <property name="unitsEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="formatType">
+      <enum>caLineEdit::string</enum>
+     </property>
+    </widget>
+    <widget class="caFrame" name="caframe_10">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="visibility">
+      <enum>caFrame::IfNotZero</enum>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY4-PRSTATUS</string>
+     </property>
+     <widget class="caLineEdit" name="calineedit_38">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>80</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="channel" stdset="0">
+       <string notr="true">$(DEV):RELAY4-PRSTATUS</string>
+      </property>
+      <property name="background">
+       <color>
+        <red>200</red>
+        <green>200</green>
+        <blue>200</blue>
+       </color>
+      </property>
+      <property name="colorMode">
+       <enum>caLineEdit::Static</enum>
+      </property>
+      <property name="framePresent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="frameLineWidth" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="unitsEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="formatType">
+       <enum>caLineEdit::string</enum>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="caFrame" name="caframe_5">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>150</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="visibility">
+     <enum>caFrame::Calc</enum>
+    </property>
+    <property name="visibilityCalc">
+     <string notr="true">A&gt;1</string>
+    </property>
+    <property name="channel" stdset="0">
+     <string notr="true">$(DEV):RELAY5-SOURCE</string>
+    </property>
+    <widget class="caLineEdit" name="calineedit_42">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY5-PRESSURE</string>
+     </property>
+     <property name="background">
+      <color>
+       <red>200</red>
+       <green>200</green>
+       <blue>200</blue>
+      </color>
+     </property>
+     <property name="colorMode">
+      <enum>caLineEdit::Static</enum>
+     </property>
+     <property name="framePresent" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="frameLineWidth" stdset="0">
+      <number>1</number>
+     </property>
+     <property name="precision">
+      <number>1</number>
+     </property>
+     <property name="precisionMode">
+      <enum>caLineEdit::Channel</enum>
+     </property>
+     <property name="unitsEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="formatType">
+      <enum>caLineEdit::string</enum>
+     </property>
+    </widget>
+    <widget class="caFrame" name="caframe_11">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="visibility">
+      <enum>caFrame::IfNotZero</enum>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY5-PRSTATUS</string>
+     </property>
+     <widget class="caLineEdit" name="calineedit_39">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>80</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="channel" stdset="0">
+       <string notr="true">$(DEV):RELAY5-PRSTATUS</string>
+      </property>
+      <property name="background">
+       <color>
+        <red>200</red>
+        <green>200</green>
+        <blue>200</blue>
+       </color>
+      </property>
+      <property name="colorMode">
+       <enum>caLineEdit::Static</enum>
+      </property>
+      <property name="framePresent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="frameLineWidth" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="unitsEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="formatType">
+       <enum>caLineEdit::string</enum>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="caFrame" name="caframe_6">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>175</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="visibility">
+     <enum>caFrame::Calc</enum>
+    </property>
+    <property name="visibilityCalc">
+     <string notr="true">A&gt;1</string>
+    </property>
+    <property name="channel" stdset="0">
+     <string notr="true">$(DEV):RELAY6-SOURCE</string>
+    </property>
+    <widget class="caLineEdit" name="calineedit_55">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY6-PRESSURE</string>
+     </property>
+     <property name="background">
+      <color>
+       <red>200</red>
+       <green>200</green>
+       <blue>200</blue>
+      </color>
+     </property>
+     <property name="colorMode">
+      <enum>caLineEdit::Static</enum>
+     </property>
+     <property name="framePresent" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="frameLineWidth" stdset="0">
+      <number>1</number>
+     </property>
+     <property name="precision">
+      <number>1</number>
+     </property>
+     <property name="precisionMode">
+      <enum>caLineEdit::Channel</enum>
+     </property>
+     <property name="unitsEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="formatType">
+      <enum>caLineEdit::string</enum>
+     </property>
+    </widget>
+    <widget class="caFrame" name="caframe_12">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="visibility">
+      <enum>caFrame::IfNotZero</enum>
+     </property>
+     <property name="channel" stdset="0">
+      <string notr="true">$(DEV):RELAY6-PRSTATUS</string>
+     </property>
+     <widget class="caLineEdit" name="calineedit_40">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>80</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="channel" stdset="0">
+       <string notr="true">$(DEV):RELAY6-PRSTATUS</string>
+      </property>
+      <property name="background">
+       <color>
+        <red>200</red>
+        <green>200</green>
+        <blue>200</blue>
+       </color>
+      </property>
+      <property name="colorMode">
+       <enum>caLineEdit::Static</enum>
+      </property>
+      <property name="framePresent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="frameLineWidth" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="unitsEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="formatType">
+       <enum>caLineEdit::string</enum>
+      </property>
+     </widget>
+    </widget>
+   </widget>
    <zorder>catextentry_17</zorder>
    <zorder>catextentry_7</zorder>
    <zorder>calabel_5</zorder>
    <zorder>catextentry_13</zorder>
    <zorder>catextentry_5</zorder>
-   <zorder>calineedit_12</zorder>
    <zorder>catextentry_4</zorder>
    <zorder>catextentry_8</zorder>
    <zorder>catextentry_14</zorder>
-   <zorder>calineedit_28</zorder>
    <zorder>catextentry_10</zorder>
    <zorder>calabel_2</zorder>
    <zorder>calabel_3</zorder>
-   <zorder>calineedit_42</zorder>
    <zorder>catextentry_11</zorder>
-   <zorder>calineedit_55</zorder>
-   <zorder>calineedit_35</zorder>
    <zorder>catextentry_20</zorder>
    <zorder>calabel_4</zorder>
    <zorder>catextentry_16</zorder>
    <zorder>catextentry_19</zorder>
    <zorder>caLabel_4</zorder>
-   <zorder>calineedit_21</zorder>
    <zorder>calineedit_44</zorder>
    <zorder>Channel_1</zorder>
    <zorder>calineedit_16</zorder>
@@ -1841,6 +2307,15 @@ border-radius: 2px;
    <zorder>camenu_5</zorder>
    <zorder>camenu_6</zorder>
    <zorder>carelateddisplay</zorder>
+   <zorder>caframe</zorder>
+   <zorder>caframe_2</zorder>
+   <zorder>caframe_3</zorder>
+   <zorder>caframe_4</zorder>
+   <zorder>caframe_5</zorder>
+   <zorder>caframe_6</zorder>
+   <zorder>calineedit_14</zorder>
+   <zorder>calineedit_32</zorder>
+   <zorder>calineedit_18</zorder>
   </widget>
  </widget>
  <customwidgets>
@@ -1858,6 +2333,12 @@ border-radius: 2px;
    <class>caTextEntry</class>
    <extends>caLineEdit</extends>
    <header>caTextEntry</header>
+  </customwidget>
+  <customwidget>
+   <class>caFrame</class>
+   <extends>QFrame</extends>
+   <header>caFrame</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>caLabel</class>

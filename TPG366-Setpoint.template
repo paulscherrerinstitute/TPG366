@@ -15,6 +15,7 @@ record (bi, "$(CONTROLLER):READ-SETPOINTS")
     field (PRIO, "MEDIUM")
     field (PINI, "YES")
     field (SCAN, "$(FASTSCAN=1 second)")
+    field (ASG,  "READONLY")
 }
 
 record (bi, "$(CONTROLLER):RELAY$(NR)")
@@ -24,17 +25,20 @@ record (bi, "$(CONTROLLER):RELAY$(NR)")
     field (ZNAM, "OFF")
     field (ZSV,  "MAJOR")
     field (ONAM, "ON")
+    field (SDIS, "$(CONTROLLER):READ-SETPOINTS MS CP")
     field (FLNK, "$(CONTROLLER):SETPOINT$(NR)")
+    field (ASG,  "READONLY")
 }
 
 record (bi, "$(CONTROLLER):SETPOINT$(NR)")
 {
     # for backward compatibility
-    field (INP, "$(CONTROLLER):RELAY$(NR)")
+    field (INP, "$(CONTROLLER):RELAY$(NR) MS")
     field (DESC, "state read from hardware")
     field (ZNAM, "alarm")
     field (ZSV,  "MAJOR")
     field (ONAM, "Ok")
+    field (ASG,  "READONLY")
 }
 
 record (mbbo, "$(CONTROLLER):RELAY$(NR)-SOURCE")
@@ -50,6 +54,8 @@ record (mbbo, "$(CONTROLLER):RELAY$(NR)-SOURCE")
     field (FVST, "S4")
     field (SXST, "S5")
     field (SVST, "S6")
+    field (SDIS, "$(CONTROLLER):READ-SETPOINTS MS CP")
+    field (PRIO, "HIGH")
     field (FLNK, "$(CONTROLLER):RELAY$(NR)-SET")
     field (ASG,  "$(ASG=)")
 }
@@ -63,7 +69,9 @@ record (ao, "$(CONTROLLER):RELAY$(NR)-LOW")
     field (HOPR, "1500")
     field (PREC, "$(PREC=-4)")
     field (EGU,  "mbar")
+    field (PRIO, "HIGH")
     field (FLNK, "$(CONTROLLER):RELAY$(NR)-SET")
+    field (SDIS, "$(CONTROLLER):RELAY$(NR)-UPDATE.PACT")
     field (ASG,  "$(ASG=)")
 }
 
@@ -76,7 +84,9 @@ record (ao, "$(CONTROLLER):RELAY$(NR)-HIGH")
     field (HOPR, "1500")
     field (PREC, "$(PREC=-4)")
     field (EGU,  "mbar")
+    field (PRIO, "HIGH")
     field (FLNK, "$(CONTROLLER):RELAY$(NR)-SET")
+    field (SDIS, "$(CONTROLLER):RELAY$(NR)-UPDATE.PACT")
     field (ASG,  "$(ASG=)")
 }
 
@@ -87,7 +97,7 @@ record (bo, "$(CONTROLLER):RELAY$(NR)-SET")
     field (OUT,  "@TPG366.proto set_relay_setpoint($(CONTROLLER),$(ADDR=1),$(NR)) $(PORT)")
     field (PRIO, "HIGH")
     field (SDIS, "$(CONTROLLER):RELAY$(NR)-UPDATE.PACT")
-    field (FLNK, "$(CONTROLLER):RELAY$(NR)-SELSENS")
+    field (ASG,  "READONLY")
 }
 
 record (bi, "$(CONTROLLER):RELAY$(NR)-UPDATE")
@@ -96,12 +106,15 @@ record (bi, "$(CONTROLLER):RELAY$(NR)-UPDATE")
     field (DTYP, "stream")
     field (INP,  "@TPG366.proto get_relay_setpoint($(CONTROLLER),$(ADDR=1),$(NR)) $(PORT)")
     field (PRIO, "LOW")
-#    field (SCAN, "$(SLOWSCAN=10 second)")
+    field (SCAN, "$(SLOWSCAN=10 second)")
+    field (PINI, "YES")
+    field (SDIS, "$(CONTROLLER):RELAY$(NR)-SET.PACT")
+    field (ASG,  "READONLY")
 }
 
 record (scalcout, "$(CONTROLLER):RELAY$(NR)-SELSENS")
 {
-    field (INPA, "$(CONTROLLER):RELAY$(NR)-SOURCE")
+    field (INPA, "$(CONTROLLER):RELAY$(NR)-SOURCE MS CP")
     field (INAA, "$(CONTROLLER):SENSOR1-NAME")
     field (INBB, "$(CONTROLLER):SENSOR2-NAME")
     field (INCC, "$(CONTROLLER):SENSOR3-NAME")
@@ -109,24 +122,24 @@ record (scalcout, "$(CONTROLLER):RELAY$(NR)-SELSENS")
     field (INEE, "$(CONTROLLER):SENSOR5-NAME")
     field (INFF, "$(CONTROLLER):SENSOR6-NAME")
     field (CALC, "A>=2?@@(A-2):'none'")
-    field (OUT, "$(CONTROLLER):RELAY$(NR)-SENSOR PP")
+    field (OUT, "$(CONTROLLER):RELAY$(NR)-SENSOR MS PP")
     field (PINI, "YES")
+    field (ASG,  "READONLY")
 }
 
 record (stringin, "$(CONTROLLER):RELAY$(NR)-SENSOR")
 {
     alias("$(CONTROLLER):RELAIS-$(NRC)-SENSOR")
     field (DESC, "sensor used for relay")
+    field (ASG,  "READONLY")
 }
 
 record (sel, "$(CONTROLLER):RELAY$(NR)-PRESSURE")
 {
     field (DESC, "pressure used for relay")
     alias("$(CONTROLLER):RELAIS-$(NRC)-PRESSURE")
-    field (NVL,  "$(CONTROLLER):RELAY$(NR)-SOURCE")
+    field (NVL,  "$(CONTROLLER):RELAY$(NR)-SOURCE MS")
     field (SELM, "Specified")
-    field (INPA, "0")
-    field (INPB, "0")
     field (INPC, "$(CONTROLLER):PRESSURE1 MS")
     field (INPD, "$(CONTROLLER):PRESSURE2 MS")
     field (INPE, "$(CONTROLLER):PRESSURE3 MS")
@@ -137,4 +150,33 @@ record (sel, "$(CONTROLLER):RELAY$(NR)-PRESSURE")
     field (EGU,  "mbar")
     field (SCAN, "$(FASTSCAN=1 second)")
     field (PINI, "YES")
+    field (ASG,  "READONLY")
+}
+
+record (sel, "$(CONTROLLER):RELAY$(NR)-PRSTATUSSEL")
+{
+    field (NVL,  "$(CONTROLLER):RELAY$(NR)-SOURCE MS CP")
+    field (SELM, "Specified")
+    field (INPC, "$(CONTROLLER):STATUS1 MS CP")
+    field (INPD, "$(CONTROLLER):STATUS2 MS CP")
+    field (INPE, "$(CONTROLLER):STATUS3 MS CP")
+    field (INPF, "$(CONTROLLER):STATUS4 MS CP")
+    field (INPG, "$(CONTROLLER):STATUS5 MS CP")
+    field (INPH, "$(CONTROLLER):STATUS6 MS CP")
+    field (ASG,  "READONLY")
+    field (FLNK, "$(CONTROLLER):RELAY$(NR)-PRSTATUS")
+}
+
+record (mbbi, "$(CONTROLLER):RELAY$(NR)-PRSTATUS")
+{
+    field (INP,  "$(CONTROLLER):RELAY$(NR)-PRSTATUSSEL MS")
+    field (ZRST, "OK")
+    field (ONST, "UNDERRANGE")
+    field (TWST, "OVERRANGE")
+    field (THST, "SENSOR ERROR")
+    field (FRST, "SENSOR OFF")
+    field (FVST, "NO SENSOR")
+    field (SXST, "ID ERROR")
+    field (SVST, "I/O ERROR")
+    field (ASG,  "READONLY")
 }

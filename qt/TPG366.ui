@@ -1619,7 +1619,7 @@ border-radius: 2px;
       </color>
      </property>
      <property name="colorMode">
-      <enum>caLineEdit::Alarm_Static</enum>
+      <enum>caLineEdit::Static</enum>
      </property>
      <property name="framePresent" stdset="0">
       <bool>false</bool>
@@ -1679,7 +1679,7 @@ border-radius: 2px;
       </color>
      </property>
      <property name="colorMode">
-      <enum>caLineEdit::Alarm_Static</enum>
+      <enum>caLineEdit::Static</enum>
      </property>
      <property name="framePresent" stdset="0">
       <bool>false</bool>
@@ -1739,7 +1739,7 @@ border-radius: 2px;
       </color>
      </property>
      <property name="colorMode">
-      <enum>caLineEdit::Alarm_Static</enum>
+      <enum>caLineEdit::Static</enum>
      </property>
      <property name="framePresent" stdset="0">
       <bool>false</bool>
@@ -1799,7 +1799,7 @@ border-radius: 2px;
       </color>
      </property>
      <property name="colorMode">
-      <enum>caLineEdit::Alarm_Static</enum>
+      <enum>caLineEdit::Static</enum>
      </property>
      <property name="framePresent" stdset="0">
       <bool>false</bool>
@@ -1903,7 +1903,7 @@ border-radius: 2px;
       </color>
      </property>
      <property name="colorMode">
-      <enum>caLineEdit::Alarm_Static</enum>
+      <enum>caLineEdit::Static</enum>
      </property>
      <property name="framePresent" stdset="0">
       <bool>false</bool>
@@ -1963,7 +1963,7 @@ border-radius: 2px;
       </color>
      </property>
      <property name="colorMode">
-      <enum>caLineEdit::Alarm_Static</enum>
+      <enum>caLineEdit::Static</enum>
      </property>
      <property name="framePresent" stdset="0">
       <bool>false</bool>
@@ -2723,7 +2723,6 @@ border-radius: 2px;
    <zorder>caframe_6</zorder>
    <zorder>caframe_5</zorder>
    <zorder>caframe_7</zorder>
-   <zorder>caChoice_7</zorder>
    <zorder>caframe_8</zorder>
    <zorder>caframe_9</zorder>
    <zorder>caframe_10</zorder>
@@ -2736,6 +2735,9 @@ border-radius: 2px;
    <zorder>camenu_2</zorder>
    <zorder>camenu_3</zorder>
    <zorder>carelateddisplay_2</zorder>
+   <zorder>calineedit_14</zorder>
+   <zorder>calineedit_14</zorder>
+   <zorder>calineedit_31</zorder>
   </widget>
  </widget>
  <customwidgets>

@@ -143,12 +143,7 @@ read_status {
 }
 
 read_infos {
-    @init {
-        read_gauge_type;
-        read_names;
-        read_gas;
-        display_sensor_id;
-    }
+    read_gauge_type;
     read_gauge_type;
     read_names;
     read_gas;
@@ -170,11 +165,8 @@ get_relay_setpoint {
 }
 
 set_relay_setpoint {
-    @init {
-        get_relay_setpoint;
-    }
     addr; out "SP\$3,%(\$1:RELAY\$3-SOURCE)d,%(\$1:RELAY\$3-LOW).4E,%(\$1:RELAY\$3-HIGH).4E" CR;
     handshake;
-    in "%*d,%*E,%*E";
+    in "%(\$1:RELAY\$3-SOURCE)d,%(\$1:RELAY\$3-LOW)E,%(\$1:RELAY\$3-HIGH)E";
     save;
 }
