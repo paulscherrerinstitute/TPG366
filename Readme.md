@@ -15,6 +15,10 @@ documents.
 
 ## Usage
 
+Note to non-PSI users: The commands `require` and `!` are PSI extensions
+and may not be available elsewhere. Instead of `!`, the `system` command
+can be used. Dynamic module loading is not supported by standard EPICS.
+
 ### Load the module "TPG366"
 
 Use the `require` command to load the module. It provides the templates and
